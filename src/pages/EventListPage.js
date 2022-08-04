@@ -1,9 +1,12 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import AddEvent from "../components/AddEvent"
+import { AuthContext } from "../context/auth.context"
+
 
 const EventListPage = () => {
+    //const { user } = useContext(AuthContext);
     const [events, setEvents] = useState("")
     const fetchEvents = () => {
         axios.get(`${process.env.REACT_APP_API_BASE_URL}/events`)
@@ -13,7 +16,6 @@ const EventListPage = () => {
     useEffect(() => {
         fetchEvents()
     }, [])
-    
 
     return(
         <div>

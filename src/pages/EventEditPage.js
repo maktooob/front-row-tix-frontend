@@ -5,7 +5,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 const EventEditPage = (props) => {
     const location = useLocation();
-    console.log("huhu", location.state, "haha", props.foundEvent)
     let navigate = useNavigate()
     const id = useParams()
     const [inputs, setInputs] = useState({})
@@ -19,7 +18,7 @@ const EventEditPage = (props) => {
         image: inputs.image,
       }
       axios
-        .put(`${process.env.REACT_APP_API_URL}/events/${id}`, updatedEvent)
+        .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, updatedEvent)
         .then((res) => {
             
         })

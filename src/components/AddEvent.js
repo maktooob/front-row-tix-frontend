@@ -3,7 +3,6 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
 const AddEvent = (props) => {
-  console.log(props)
   let navigate = useNavigate()
   const [inputs, setInputs] = useState({})
   const addEvent = () => {
@@ -19,7 +18,6 @@ const AddEvent = (props) => {
     axios
       .post(process.env.REACT_APP_API_BASE_URL + '/events', newEvent)
       .then((res) => {
-        console.log(res.data)
         props.fetchEventsCallback() //add event to List and update the view
         setInputs('')
       })
