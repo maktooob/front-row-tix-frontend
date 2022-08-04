@@ -5,17 +5,20 @@ import AddEvent from "../components/AddEvent"
 
 const EventListPage = () => {
     const [events, setEvents] = useState("")
-    useEffect(() => {
+    const fetchEvents = () => {
         axios.get(`${process.env.REACT_APP_API_BASE_URL}/events`)
         .then(res => setEvents(res.data))
         .catch(e => console.log(e))
+    }
+    useEffect(() => {
+        fetchEvents()
     }, [])
     
 
     return(
         <div>
             <h1>Choose an event</h1>
-            <AddEvent />
+            <AddEvent  fetchEventsCallback={fetchEvents}/>
             {events ? 
             events.map(element => {
                 return <div key={element._id}>

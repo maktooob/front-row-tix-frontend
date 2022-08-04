@@ -2,7 +2,8 @@ import axios from 'axios'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-const AddEvent = () => {
+const AddEvent = (props) => {
+  console.log(props)
   let navigate = useNavigate()
   const [inputs, setInputs] = useState({})
   const addEvent = () => {
@@ -10,16 +11,24 @@ const AddEvent = () => {
       title: inputs.title,
       description: inputs.description,
       category: inputs.category,
+      location: inputs.location,
       price: inputs.price,
       image: inputs.image,
     }
-    console.log(process.env.REACT_APP_API_BASE_URL)
-    axios.post(process.env.REACT_APP_API_BASE_URL + '/events', newEvent)
+    console.log(" is location there?", newEvent)
+    axios
+      .post(process.env.REACT_APP_API_BASE_URL + '/events', newEvent)
+      .then((res) => {
+        console.log(res.data)
+        props.fetchEventsCallback() //add event to List and update the view
+        setInputs('')
+      })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     addEvent()
+    
     navigate('/events')
   }
   const handleChange = (event) => {
@@ -31,16 +40,16 @@ const AddEvent = () => {
   return (
     <>
       <h1>Add a new Event!</h1>
-      <form id="addEvent" onSubmit={handleSubmit}>
+      <form id='addEvent' onSubmit={handleSubmit}>
         <label>
-          {' '}
+          
           Title
           <input
             type='text'
             name='title'
             value={inputs.title || ''}
             onChange={handleChange}
-          />{' '}
+          />
         </label>
         <label>
           Description
@@ -51,17 +60,30 @@ const AddEvent = () => {
             onChange={handleChange}
           />
         </label>
-        <label htmlFor='category'>Choose a car:</label>
-        <select id='category' name='category' onChange={handleChange} form='addEvent'>
+        <label htmlFor='category'>Select category</label>
+        <select
+          id='category'
+          name='category'
+          onChange={handleChange}
+          form='addEvent'
+        >
           <option value='sports'>Sports</option>
           <option value='concert'>Concert</option>
           <option value='culture'>Culture</option>
         </select>
-
+        <label>
+          Location
+          <input
+            type='text'
+            name='location'
+            value={inputs.location || ''}
+            onChange={handleChange}
+          />
+        </label>
         <label>
           Price
           <input
-            type='text'
+            type='number'
             name='price'
             value={inputs.price || ''}
             onChange={handleChange}

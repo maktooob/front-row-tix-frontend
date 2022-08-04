@@ -29,7 +29,7 @@ const EventDetailsPage = () => {
             <p>{foundEvent.location}</p>
             <p>{foundEvent.category}</p>
             <p>{foundEvent.price}</p>
-            <Link to={`/events/edit/${id}`}><button >Edit</button></Link>
+            <Link to={`/events/edit/${id}`} state={{foundEvent}} ><button >Edit</button></Link>
             <button onClick={deleteFromDB}>Delete</button>
         </div>
         :
