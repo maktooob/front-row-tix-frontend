@@ -10,11 +10,11 @@ import CartPage from './pages/CartPage';
 import Homepage from './pages/Homepage';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
+import OrderPage from './pages/OrderPage';
 
 
 function App() {
   const [cart, setCart] = useState([])
-  console.log(cart)
   const addToCart = (id) => {
     axios.get(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`)
     .then(res => {
@@ -38,6 +38,7 @@ function App() {
       <Route path='/signup' element={<SignupPage />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/cart' element={<CartPage cart={cart}/>}/>
+      <Route path='/order' element={<OrderPage cart={cart}/>}/>
     </Routes>
 
 

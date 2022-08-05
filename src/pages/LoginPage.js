@@ -14,6 +14,8 @@ const userLogin = () => {
     axios.post(process.env.REACT_APP_API_BASE_URL + '/login', user)
     .then(res => {
       console.log("login successful")
+      console.log(res.data)
+      localStorage.setItem("authToken", res.data.authToken)
     })
     .catch(e => console.log(e))
 }

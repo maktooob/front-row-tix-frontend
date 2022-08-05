@@ -1,12 +1,16 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { AuthContext } from "../context/auth.context"
 
 
 const EventEditPage = (props) => {
+  const {user} = useContext(AuthContext)
+  const storedToken = localStorage.getItem("authToken");
+  console.log("zzz", user)
     const location = useLocation();
     let navigate = useNavigate()
-    const id = useParams()
+    const {id} = useParams()
     const [inputs, setInputs] = useState({})
     const updateEvent = () => {
       const updatedEvent = {
@@ -18,9 +22,11 @@ const EventEditPage = (props) => {
         image: inputs.image,
       }
       axios
-        .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, updatedEvent)
+        .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, updatedEvent, 
+          {headers: {Authorization: `Bearer ${storedToken}`}})
         .then((res) => {
-            
+            console.log(updateEvent)
+
         })
         .catch (e => console.log(e))
     }
