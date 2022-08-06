@@ -26,7 +26,7 @@ function AuthProviderWrapper(props) {
         .then((response) => {
           // If the server verifies that JWT token is valid
           const payload = response.data
-          
+          console.log(response.data)
           // Update state variables
           setIsLoggedIn(true)
           setIsLoading(false)
@@ -51,7 +51,9 @@ function AuthProviderWrapper(props) {
   const removeToken = () => {
     // <== ADD
     // Upon logout, remove the token from the localStorage
+
     localStorage.removeItem('authToken')
+
   }
 
   const logOutUser = () => {

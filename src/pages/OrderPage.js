@@ -1,26 +1,37 @@
 
+import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/auth.context"
-
-
 
 const OrderPage = (props) => {
   const {user} = useContext(AuthContext)
   const [inputs, setInputs] = useState("")
-
+console.log("context",useContext(AuthContext))
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({...values, [name]: value}))
   }
-  console.log(user,"2")
-  const addOrder = () => {
+  useEffect(() => {
+    console.log("user", user)
+  },[])
+console.log("user again", user)
   
+  const addOrder = () => {
+    const newArr = props.cart.map(element => {
+    let amount = props.cart.filter((event) => event._id === element._id).length
+    let singleEvent = {eventId: element._id,
+      quantity: amount}
+      return singleEvent
+    })
+    const key = "eventId"
+    const arrayUniqueByKey = [...new Map(newArr.map(item =>
+      [item[key], item])).values()] // thank you Karina :) -> Reducing Array with duplicates to distinct and showing quantity
+
+    console.log("newArr", newArr, "set", "keyarr",arrayUniqueByKey )
     const order =  {
-      events: [{
-        event: props.cart._id,
-        quantity: Number
-      }],
+      userId: user._id,
+      events: arrayUniqueByKey,
       address: { 
         name: inputs.name,
         street: inputs.street,
@@ -30,12 +41,32 @@ const OrderPage = (props) => {
       },
       totalPrice: Number
     }
+ 
+
+    axios.post(process.env.REACT_APP_API_BASE_URL+"/order", order) 
+    .then((response) => {
+      console.log(response)
+      setInputs("")
+    })
+    .catch(e => console.log(e))
     }
-
-  const handleSubmit = () => {
-
+    
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    addOrder()
   }
 
+  const preparedArr = props.cart.reduce((acc, cur) => {
+    const existingItem = acc.find(item => cur._id === item._id);
+    if(existingItem) {
+         existingItem.count++;
+      }
+    else {
+         acc.push({...cur, count: 1});    
+      }
+      return acc;
+   }, [])
+   console.log(preparedArr)
 
   return (
     <>
@@ -87,8 +118,17 @@ const OrderPage = (props) => {
             onChange={handleChange}
           />
         </label>
-        <input type='submit' />
+        <button type="Submit"> Buy now!</button>
       </form>
+      {preparedArr.map(element => {
+        return <div>
+          <p>{element._id}</p>
+          <p>{element.title}</p>
+          <p>{element.price}</p>
+          <p>Amount: {element.count}</p>
+
+        </div>
+        })}
     </>
   )
 }

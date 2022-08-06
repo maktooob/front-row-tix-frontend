@@ -2,9 +2,11 @@ import axios from 'axios'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
+
 const AddEvent = (props) => {
   let navigate = useNavigate()
   const [inputs, setInputs] = useState({})
+
   const addEvent = () => {
     const newEvent = {
       title: inputs.title,
@@ -14,13 +16,14 @@ const AddEvent = (props) => {
       price: inputs.price,
       image: inputs.image,
     }
-    console.log(" is location there?", newEvent)
+
     axios
       .post(process.env.REACT_APP_API_BASE_URL + '/events', newEvent)
       .then((res) => {
         props.fetchEventsCallback() //add event to List and update the view
         setInputs('')
       })
+      .catch(e => console.log("issue creating an event", e))
   }
 
   const handleSubmit = (e) => {

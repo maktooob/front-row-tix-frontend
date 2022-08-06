@@ -1,52 +1,51 @@
-import axios from "axios"
-import { useContext, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { AuthContext } from "../context/auth.context"
-
+import axios from 'axios'
+import {useContext, useState} from 'react'
+import {useLocation, useNavigate, useParams} from 'react-router-dom'
+import {AuthContext} from '../context/auth.context'
 
 const EventEditPage = (props) => {
   const {user} = useContext(AuthContext)
-  const storedToken = localStorage.getItem("authToken");
-  console.log("zzz", user)
-    const location = useLocation();
-    let navigate = useNavigate()
-    const {id} = useParams()
-    const [inputs, setInputs] = useState({})
-    const updateEvent = () => {
-      const updatedEvent = {
-        title: inputs.title,
-        description: inputs.description,
-        category: inputs.category,
-        location: inputs.location,
-        price: inputs.price,
-        image: inputs.image,
-      }
-      axios
-        .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, updatedEvent, 
-          {headers: {Authorization: `Bearer ${storedToken}`}})
-        .then((res) => {
-            console.log(updateEvent)
-
-        })
-        .catch (e => console.log(e))
-    }
+  const storedToken = localStorage.getItem('authToken')
+  console.log('zzz', user)
+  const location = useLocation()
+  let navigate = useNavigate()
+  const {id} = useParams()
+  const [inputs, setInputs] = useState({})
   
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      updateEvent()
-      navigate('/events')
+  const updateEvent = () => {
+    const updatedEvent = {
+      title: inputs.title,
+      description: inputs.description,
+      category: inputs.category,
+      location: inputs.location,
+      price: inputs.price,
+      image: inputs.image,
     }
-    const handleChange = (event) => {
-      const name = event.target.name
-      const value = event.target.value
-      setInputs((values) => ({...values, [name]: value}))
-    }
-    return (
-        <div>
-            <h1>edit!</h1>
-            <form id='addEvent' onSubmit={handleSubmit}>
+    axios
+      .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, updatedEvent, {
+        headers: {Authorization: `Bearer ${storedToken}`},
+      })
+      .then((res) => {
+        console.log(updateEvent)
+      })
+      .catch((e) => console.log(e))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    updateEvent()
+    navigate(`/events/${id}`)
+  }
+  const handleChange = (event) => {
+    const name = event.target.name
+    const value = event.target.value
+    setInputs((values) => ({...values, [name]: value}))
+  }
+  return (
+    <div>
+      <h1>edit!</h1>
+      <form id='addEvent' onSubmit={handleSubmit}>
         <label>
-          
           Title
           <input
             type='text'
@@ -109,8 +108,8 @@ const EventEditPage = (props) => {
         </label>
         <input type='submit' />
       </form>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default EventEditPage

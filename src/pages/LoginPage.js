@@ -1,41 +1,45 @@
-import axios from "axios"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-
+import axios from 'axios'
+import {useContext, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {AuthContext} from '../context/auth.context'
 
 const LoginPage = () => {
-let navigate = useNavigate()
-const [inputs, setInputs] = useState("")
-const userLogin = () => {
-    const user = {
-        username: inputs.username,
-        password: inputs.password
-    }
-    axios.post(process.env.REACT_APP_API_BASE_URL + '/login', user)
-    .then(res => {
-      console.log("login successful")
-      console.log(res.data)
-      localStorage.setItem("authToken", res.data.authToken)
-    })
-    .catch(e => console.log(e))
-}
+  let navigate = useNavigate()
+  const [inputs, setInputs] = useState('')
+  const {storeToken, authenticateUser} = useContext(AuthContext)
 
-const handleSubmit = (e) => {
+  const userLogin = () => {
+    const user = {
+      username: inputs.username,
+      password: inputs.password,
+    }
+    axios
+      .post(process.env.REACT_APP_API_BASE_URL + '/login', user)
+      .then((res) => {
+        console.log('login successful')
+        console.log(res.data)
+        storeToken(res.data.authToken)
+        authenticateUser()
+      })
+      .catch((e) => console.log(e))
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault()
     userLogin()
     navigate('/')
   }
 
-const handleChange = (event) => {
+  const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({...values, [name]: value}))
-      }
+  }
 
-    return(
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+  return (
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
         <label>
           Username
           <input
@@ -54,10 +58,10 @@ const handleChange = (event) => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Login</button>
-        </form>
-        </div>
-    )
+        <button type='submit'>Login</button>
+      </form>
+    </div>
+  )
 }
 
 export default LoginPage

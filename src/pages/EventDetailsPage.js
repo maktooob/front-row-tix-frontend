@@ -3,6 +3,7 @@ const { useState, useEffect } = require("react");
 const { useParams, Link, useNavigate } = require("react-router-dom");
 
 const EventDetailsPage = (props) => {
+    console.log(props)
     let navigate = useNavigate()
     const {id} = useParams()
     const [foundEvent, setFoundEvent] = useState({})

@@ -2,12 +2,15 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import AddEvent from "../components/AddEvent"
+import IsAdmin from "../components/IsAdmin"
 import { AuthContext } from "../context/auth.context"
 
 
 const EventListPage = () => {
     //const { user } = useContext(AuthContext);
     const [events, setEvents] = useState("")
+    const {user} = useContext(AuthContext)
+console.log(user)
     const fetchEvents = () => {
         axios.get(`${process.env.REACT_APP_API_BASE_URL}/events`)
         .then(res => setEvents(res.data))
@@ -20,7 +23,9 @@ const EventListPage = () => {
     return(
         <div>
             <h1>Choose an event</h1>
-            <AddEvent  fetchEventsCallback={fetchEvents}/>
+            <IsAdmin>
+                <AddEvent  fetchEventsCallback={fetchEvents}/>
+            </IsAdmin>
             {events ? 
             events.map(element => {
                 return <div key={element._id}>
