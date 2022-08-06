@@ -14,6 +14,7 @@ import OrderPage from './pages/OrderPage'
 import IsAnon from './components/IsAnon'
 import IsPrivate from './components/IsPrivate'
 import { AuthContext } from './context/auth.context'
+import UserPage from './pages/UserPage'
 
 function App() {
   const {user} = useContext(AuthContext)
@@ -94,7 +95,9 @@ function App() {
             </IsPrivate>
           }
         />
-        {/* <Route path={`/profile/${user._id}`}/> */}
+        <Route 
+            path={`/user/${user?._id}`} 
+            element={<UserPage />}/>
       </Routes>
     </div>
   )

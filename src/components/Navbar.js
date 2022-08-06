@@ -12,7 +12,7 @@ const Navbar = (props) => {
     <NavLink to="/login">Login | </NavLink>
     <NavLink to="/signup">Signup | </NavLink>
     <NavLink to="/cart">Your Cart {props.cart.length} | </NavLink>
-    <NavLink to={`/profile/${user?._id}`}>{user?.username}  </NavLink>
+    <NavLink to={`/user/${user?._id}`}>{user?.username}  </NavLink>
     <button onClick={logOutUser}>Logout</button>
     </>
     

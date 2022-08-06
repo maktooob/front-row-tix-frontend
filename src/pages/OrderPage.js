@@ -121,8 +121,8 @@ console.log("user again", user)
         <button type="Submit"> Buy now!</button>
       </form>
       {preparedArr.map(element => {
-        return <div>
-          <p>{element._id}</p>
+        return <div key={element._id}>
+          
           <p>{element.title}</p>
           <p>{element.price}</p>
           <p>Amount: {element.count}</p>
