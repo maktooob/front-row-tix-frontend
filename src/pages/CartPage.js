@@ -13,7 +13,7 @@ const newArr = [...cart, props.cart]
     setCart(newArr)
  }, [])
 
-console.log("coming from props", props.cart,"just props", props,  "///inside cart", cart[0])
+/// don´t show duplicates, instead quantity
 const preparedArr = props.cart.reduce((acc, cur) => {
   const existingItem = acc.find(item => cur._id === item._id);
   if(existingItem) {
@@ -24,12 +24,13 @@ const preparedArr = props.cart.reduce((acc, cur) => {
     }
     return acc;
  }, [])
+
  const totalPrice = props.cart.reduce((acc, {price}) => acc + price, 0)
  useEffect(() => {
   setTotal(totalPrice)
  }, [preparedArr])
 
-console.log("xart", cart)
+
 console.log("XXXX", preparedArr, "XXXXXXXXXXXXXXXXX")
   return (
     <div>
@@ -42,9 +43,9 @@ console.log("XXXX", preparedArr, "XXXXXXXXXXXXXXXXX")
               <div key={element._id}>
                 <h3>{element.title}</h3>
                 <p>amount: {element.quantity}</p>
-                <p>{element.description}</p>
-                <p>{element.location}</p>
-                <p>{element.price}</p>
+                <p>Description: {element.description}</p>
+                <p>Location: {element.location}</p>
+                <p>Price: {element.price}</p>
                 <button onClick={() => {props.addToCartCallback(element._id)}}>+</button>
                 <button onClick={() => {props.removeFromCartCallback(element._id)}}>-</button>
               </div>

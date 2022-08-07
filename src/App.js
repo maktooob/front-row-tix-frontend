@@ -13,7 +13,7 @@ import axios from 'axios'
 import OrderPage from './pages/OrderPage'
 import IsAnon from './components/IsAnon'
 import IsPrivate from './components/IsPrivate'
-import { AuthContext } from './context/auth.context'
+import {AuthContext} from './context/auth.context'
 import UserPage from './pages/UserPage'
 
 function App() {
@@ -28,25 +28,22 @@ function App() {
         setCart(newArr)
       })
       .catch((e) => console.log(e))
-    console.log('cart', cart, 'props', id)
-  }
-  console.log('cart', cart, 'props')
-  const removeFromCart = (id) => {
-    const indexToRemove = cart.findIndex((element) => {
-      console.log(element._id, id)
-      return element._id === id
-    })
-    console.log('index of remove', indexToRemove, 'what id?', id)
-    const copy = [...cart]
-    copy.splice(indexToRemove, 1)
-    console.log('new Arr after removal', copy)
-    setCart(copy)
   }
 
-  console.log(cart)
+  const removeFromCart = (id) => {
+    const indexToRemove = cart.findIndex((element) => {
+      return element._id === id
+    })
+    const copy = [...cart]
+    copy.splice(indexToRemove, 1)
+    setCart(copy)
+  }
+  const clearCart = () => {
+    setCart([])
+  }
   return (
     <div className='App'>
-      <Navbar cart= {cart}/>
+      <Navbar cart={cart} />
 
       <Routes>
         <Route path='/' element={<Homepage />} />
@@ -60,27 +57,33 @@ function App() {
 
         <Route path='/events/edit/:id' element={<EventEditPage />} />
 
-        <Route path='/signup' element={
-          <IsAnon>
-            <SignupPage />
-          </IsAnon>
-        } />
+        <Route
+          path='/signup'
+          element={
+            <IsAnon>
+              <SignupPage />
+            </IsAnon>
+          }
+        />
 
-        <Route path='/login' element={
-          <IsAnon>
-            <LoginPage />
-          </IsAnon>
-        } />
-        
+        <Route
+          path='/login'
+          element={
+            <IsAnon>
+              <LoginPage />
+            </IsAnon>
+          }
+        />
+
         <Route
           path='/cart'
           element={
             <IsPrivate>
-            <CartPage
-              cart={cart}
-              addToCartCallback={(id) => addToCart(id)}
-              removeFromCartCallback={(id) => removeFromCart(id)}
-            />
+              <CartPage
+                cart={cart}
+                addToCartCallback={(id) => addToCart(id)}
+                removeFromCartCallback={(id) => removeFromCart(id)}
+              />
             </IsPrivate>
           }
         />
@@ -91,13 +94,12 @@ function App() {
               <OrderPage
                 cart={cart}
                 removeFromCartCallback={(id) => removeFromCart(id)}
+                clearCartCallback={clearCart}
               />
             </IsPrivate>
           }
         />
-        <Route 
-            path={`/user/:id`} 
-            element={<UserPage />}/>
+        <Route path={`/user/:id`} element={<UserPage />} />
       </Routes>
     </div>
   )

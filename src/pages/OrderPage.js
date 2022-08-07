@@ -2,12 +2,17 @@ import axios from 'axios'
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/auth.context'
 import Button from '@mui/material/Button'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 const OrderPage = (props) => {
+
+  let navigate = useNavigate()
   const {user} = useContext(AuthContext)
   const [inputs, setInputs] = useState('')
   const [total, setTotal] = useState(null)
-  console.log('context', useContext(AuthContext))
+  const [orderStatus, setOrderStatus] = useState(false)
+
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
@@ -42,7 +47,7 @@ const OrderPage = (props) => {
         city: inputs.city,
         country: inputs.country,
       },
-      totalPrice: Number,
+      totalPrice: total,
     }
 
     axios
@@ -50,6 +55,7 @@ const OrderPage = (props) => {
       .then((response) => {
         console.log(response)
         setInputs('')
+        props.clearCartCallback()
       })
       .catch((e) => console.log(e))
   }
@@ -57,8 +63,10 @@ const OrderPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     addOrder()
+    setTotal(0)
+    setOrderStatus(true)
   }
-
+  /// don´t show duplicates, instead quantity
   const preparedArr = props.cart.reduce((acc, cur) => {
     const existingItem = acc.find((item) => cur._id === item._id)
     if (existingItem) {
@@ -68,13 +76,20 @@ const OrderPage = (props) => {
     }
     return acc
   }, [])
-  console.log(preparedArr)
-  console.log(props.cart)
+
   const totalPrice = props.cart.reduce((acc, {price}) => acc + price, 0)
   useEffect(() => setTotal(totalPrice), [])
-  console.log('totalprice', totalPrice)
+
+
+
   return (
     <>
+    {orderStatus ? 
+    <div>
+      <div>Thank you for your purchase! Your order has been placed successfully!</div>
+      <Link to="/">Keep shopping</Link>
+    </div>
+      : <div>
       <div>Complete your order</div>
       <form id='addEvent' onSubmit={handleSubmit}>
         <h3>Submit your shipping details</h3>
@@ -134,10 +149,11 @@ const OrderPage = (props) => {
           <div key={element._id}>
             <p>{element.title}</p>
             <p>{element.price}</p>
-            <p>Amount: {element.count}</p>
+            <p>Amount: {element.quantity}</p>
           </div>
         )
       })}
+      </div> }
     </>
   )
 }
