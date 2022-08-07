@@ -18,15 +18,25 @@ const UserPage = () => {
   }
   useEffect(() => {
     fetchOrders()
-    console.log(orders)
+    console.log("orders", orders)
   }, [])
-
+  console.log("orders", orders)
   return <div>
     <h1>Hey there, {user?.username}!</h1>
       <h3>Your order history:</h3>
       {orders ? 
       orders.map((order) => {
-        <div>{order._id}</div> 
+        return <div>
+          <div>Order-ID: {order._id}</div> 
+          {order.events.map(event => {
+           return <div>
+            <p>{event.eventId.title}</p>
+            <p>{event.eventId.price}</p>
+           </div>
+          })}
+          <hr></hr>
+        </div>
+        
       })
        
     :
