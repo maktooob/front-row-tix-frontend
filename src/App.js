@@ -96,7 +96,7 @@ function App() {
           }
         />
         <Route 
-            path={`/user/${user?._id}`} 
+            path={`/user/:id`} 
             element={<UserPage />}/>
       </Routes>
     </div>

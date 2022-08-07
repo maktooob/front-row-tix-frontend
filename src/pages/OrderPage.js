@@ -1,73 +1,78 @@
-
-import axios from "axios"
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../context/auth.context"
+import axios from 'axios'
+import {useContext, useEffect, useState} from 'react'
+import {AuthContext} from '../context/auth.context'
+import Button from '@mui/material/Button'
 
 const OrderPage = (props) => {
   const {user} = useContext(AuthContext)
-  const [inputs, setInputs] = useState("")
-console.log("context",useContext(AuthContext))
+  const [inputs, setInputs] = useState('')
+  const [total, setTotal] = useState(null)
+  console.log('context', useContext(AuthContext))
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({...values, [name]: value}))
   }
   useEffect(() => {
-    console.log("user", user)
-  },[])
-console.log("user again", user)
-  
+    console.log('user', user)
+  }, [])
+  console.log('user again', user)
+
   const addOrder = () => {
-    const newArr = props.cart.map(element => {
-    let amount = props.cart.filter((event) => event._id === element._id).length
-    let singleEvent = {eventId: element._id,
-      quantity: amount}
+    const newArr = props.cart.map((element) => {
+      let amount = props.cart.filter(
+        (event) => event._id === element._id
+      ).length
+      let singleEvent = {eventId: element._id, quantity: amount}
       return singleEvent
     })
-    const key = "eventId"
-    const arrayUniqueByKey = [...new Map(newArr.map(item =>
-      [item[key], item])).values()] // thank you Karina :) -> Reducing Array with duplicates to distinct and showing quantity
+    const key = 'eventId'
+    const arrayUniqueByKey = [
+      ...new Map(newArr.map((item) => [item[key], item])).values(),
+    ] // thank you Karina :) -> Reducing Array with duplicates to distinct and showing quantity
 
-    console.log("newArr", newArr, "set", "keyarr",arrayUniqueByKey )
-    const order =  {
+    console.log('newArr', newArr, 'set', 'keyarr', arrayUniqueByKey)
+    const order = {
       userId: user._id,
       events: arrayUniqueByKey,
-      address: { 
+      address: {
         name: inputs.name,
         street: inputs.street,
         zip: inputs.zip,
         city: inputs.city,
         country: inputs.country,
       },
-      totalPrice: Number
+      totalPrice: Number,
     }
- 
 
-    axios.post(process.env.REACT_APP_API_BASE_URL+"/order", order) 
-    .then((response) => {
-      console.log(response)
-      setInputs("")
-    })
-    .catch(e => console.log(e))
-    }
-    
+    axios
+      .post(process.env.REACT_APP_API_BASE_URL + '/order', order)
+      .then((response) => {
+        console.log(response)
+        setInputs('')
+      })
+      .catch((e) => console.log(e))
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     addOrder()
   }
 
   const preparedArr = props.cart.reduce((acc, cur) => {
-    const existingItem = acc.find(item => cur._id === item._id);
-    if(existingItem) {
-         existingItem.count++;
-      }
-    else {
-         acc.push({...cur, count: 1});    
-      }
-      return acc;
-   }, [])
-   console.log(preparedArr)
-
+    const existingItem = acc.find((item) => cur._id === item._id)
+    if (existingItem) {
+      existingItem.quantity++
+    } else {
+      acc.push({...cur, quantity: 1})
+    }
+    return acc
+  }, [])
+  console.log(preparedArr)
+  console.log(props.cart)
+  const totalPrice = props.cart.reduce((acc, {price}) => acc + price, 0)
+  useEffect(() => setTotal(totalPrice), [])
+  console.log('totalprice', totalPrice)
   return (
     <>
       <div>Complete your order</div>
@@ -86,7 +91,7 @@ console.log("user again", user)
           Street
           <input
             type='text'
-            name='street' 
+            name='street'
             value={inputs.street || ''}
             onChange={handleChange}
           />
@@ -118,17 +123,21 @@ console.log("user again", user)
             onChange={handleChange}
           />
         </label>
-        <button type="Submit"> Buy now!</button>
+        <h3>Total: {total} €</h3>
+        <Button type='submit' variant='contained'>
+          Buy now!
+        </Button>
+        {/* <button type="Submit"> Buy now!</button> */}
       </form>
-      {preparedArr.map(element => {
-        return <div key={element._id}>
-          
-          <p>{element.title}</p>
-          <p>{element.price}</p>
-          <p>Amount: {element.count}</p>
-
-        </div>
-        })}
+      {preparedArr.map((element) => {
+        return (
+          <div key={element._id}>
+            <p>{element.title}</p>
+            <p>{element.price}</p>
+            <p>Amount: {element.count}</p>
+          </div>
+        )
+      })}
     </>
   )
 }

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom"
 const CartPage = (props) => {
 
   //const {user} = useContext(AuthContext)
-    const [cart, setCart] = useState([])
-
+const [cart, setCart] = useState([])
+const [total, setTotal] = useState(null)
 const newArr = [...cart, props.cart]
 
  useEffect(() => {
@@ -17,14 +17,17 @@ console.log("coming from props", props.cart,"just props", props,  "///inside car
 const preparedArr = props.cart.reduce((acc, cur) => {
   const existingItem = acc.find(item => cur._id === item._id);
   if(existingItem) {
-       existingItem.count++;
+       existingItem.quantity++;
     }
   else {
-       acc.push({...cur, count: 1});    
+       acc.push({...cur, quantity: 1});    
     }
     return acc;
  }, [])
-
+ const totalPrice = props.cart.reduce((acc, {price}) => acc + price, 0)
+ useEffect(() => {
+  setTotal(totalPrice)
+ }, [preparedArr])
 
 console.log("xart", cart)
 console.log("XXXX", preparedArr, "XXXXXXXXXXXXXXXXX")
@@ -38,7 +41,7 @@ console.log("XXXX", preparedArr, "XXXXXXXXXXXXXXXXX")
             return (
               <div key={element._id}>
                 <h3>{element.title}</h3>
-                <p>amount: {element.count}</p>
+                <p>amount: {element.quantity}</p>
                 <p>{element.description}</p>
                 <p>{element.location}</p>
                 <p>{element.price}</p>
@@ -47,10 +50,12 @@ console.log("XXXX", preparedArr, "XXXXXXXXXXXXXXXXX")
               </div>
             )
           })
+          
         ) : (
           <p>loading...</p>
         )}
       </div>
+      <div>Total: {total}</div>
     </div>
   )
 }
