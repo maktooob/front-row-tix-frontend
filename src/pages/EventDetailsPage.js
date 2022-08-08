@@ -35,6 +35,7 @@ const EventDetailsPage = (props) => {
             <p>{foundEvent.category}</p>
             <p>{foundEvent.price}</p>
             <button onClick={() => {props.addToCartCallback(id)}}>Add to Cart</button>
+            <Link to="/events"><button>Go back</button> </Link>
             {user?.status === "admin" && <div>
                 <Link to={`/events/edit/${id}`} state={{foundEvent}} ><button >Edit</button></Link>
                 <button onClick={deleteFromDB}>Delete</button> 

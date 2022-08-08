@@ -139,7 +139,7 @@ const OrderPage = (props) => {
           />
         </label>
         <h3>Total: {total} €</h3>
-        <Button type='submit' variant='contained'>
+        <Button type='submit'  variant='contained'>
           Buy now!
         </Button>
         {/* <button type="Submit"> Buy now!</button> */}
