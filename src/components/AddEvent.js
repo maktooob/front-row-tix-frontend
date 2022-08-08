@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom'
 const AddEvent = (props) => {
   let navigate = useNavigate()
   const [inputs, setInputs] = useState({})
+  const [image, setImage] = useState("")
 
   const addEvent = () => {
     const newEvent = {
@@ -14,7 +15,7 @@ const AddEvent = (props) => {
       category: inputs.category,
       location: inputs.location,
       price: inputs.price,
-      image: inputs.image,
+      image: image,
     }
 
     axios
@@ -22,10 +23,22 @@ const AddEvent = (props) => {
       .then((res) => {
         props.fetchEventsCallback() //add event to List and update the view
         setInputs('')
+        
       })
       .catch(e => console.log("issue creating an event", e))
   }
-
+  const handleFileUpload = (e) => {
+    const uploadData = new FormData()
+    uploadData.append("image", e.target.files[0])
+    axios.post(process.env.REACT_APP_API_BASE_URL +"/upload", uploadData)
+    .then(response => {
+      console.log("res img upload", response.data.fileUrl)
+      setImage(response.data.fileUrl)
+      console.log("set image", image)
+    })
+    .catch(e => console.log(e))
+  }
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     addEvent()
@@ -36,7 +49,10 @@ const AddEvent = (props) => {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({...values, [name]: value}))
+
   }
+  
+ 
 
   return (
     <>
@@ -93,14 +109,14 @@ const AddEvent = (props) => {
         <label>
           Image
           <input
-            type='text'
+            type='file'
             name='image'
-            value={inputs.image || ''}
-            onChange={handleChange}
+            onChange={(e) => handleFileUpload(e)}
           />
         </label>
         <input type='submit' />
       </form>
+ 
     </>
   )
 }

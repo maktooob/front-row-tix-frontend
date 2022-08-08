@@ -15,8 +15,23 @@ import IsAnon from './components/IsAnon'
 import IsPrivate from './components/IsPrivate'
 import {AuthContext} from './context/auth.context'
 import UserPage from './pages/UserPage'
+import React from 'react'
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+
+// Import any actions required for transformations.
+import {fill} from "@cloudinary/url-gen/actions/resize";
+
+
 
 function App() {
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'front-row-tix'
+    }
+  });
+  const myImage = cld.image('docs/models');
+
   const {user} = useContext(AuthContext)
   console.log(user)
   const [cart, setCart] = useState([])
@@ -44,7 +59,7 @@ function App() {
   return (
     <div className='App'>
       <Navbar cart={cart} />
-
+      <AdvancedImage cldImg={myImage} />
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/events' element={<EventListPage />} />

@@ -30,7 +30,7 @@ const UserPage = () => {
           <div>Order-ID: {order._id}</div> 
           {order.events.map(event => {
            return <div>
-            <p>{event.eventId.title}</p>
+            <p>Event: {event.eventId.title}</p>
             <p>Price:{event.eventId.price} €</p>
            </div>
           })}

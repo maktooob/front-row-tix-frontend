@@ -25,11 +25,12 @@ const EventListPage = () => {
       <IsAdmin>
         <AddEvent fetchEventsCallback={fetchEvents} />
       </IsAdmin>
-      {events ? (
+      {events ? ( 
         events.map((element) => {
           return (
             <div key={element._id}>
               <h3>{element.title}</h3>
+              <img src={element.image} alt={element.title} />
               <p>{element.description}</p>
               <p>{element.price}</p>
               <Link to={`/events/${element._id}`}>
