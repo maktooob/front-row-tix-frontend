@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import AddEvent from '../components/AddEvent'
 import IsAdmin from '../components/IsAdmin'
 import {AuthContext} from '../context/auth.context'
+import moment from 'moment';
 
 const EventListPage = () => {
   const [events, setEvents] = useState('')
@@ -31,8 +32,10 @@ const EventListPage = () => {
             <div key={element._id}>
               <h3>{element.title}</h3>
               <img src={element.image} alt={element.title} />
-              <p>{element.description}</p>
+              <p>{moment(element.date).format("MMM Do YY")}</p>
               <p>{element.price}</p>
+              <p>{element.location}</p>
+              <p>{element.category}</p>
               <Link to={`/events/${element._id}`}>
                 {' '}
                 <button>Details</button>

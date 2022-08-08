@@ -27,6 +27,8 @@ const UserPage = () => {
       {orders ? 
       orders.map((order) => {
         return <div>
+          {console.log("tp",order)}
+          <p>tp: {order.totalPrice}</p>
           <div>Order-ID: {order._id}</div> 
           {order.events.map(event => {
            return <div>

@@ -59,7 +59,6 @@ function App() {
   return (
     <div className='App'>
       <Navbar cart={cart} />
-      <AdvancedImage cldImg={myImage} />
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/events' element={<EventListPage />} />

@@ -14,6 +14,7 @@ const AddEvent = (props) => {
       description: inputs.description,
       category: inputs.category,
       location: inputs.location,
+      date: inputs.date,
       price: inputs.price,
       image: image,
     }
@@ -94,6 +95,15 @@ const AddEvent = (props) => {
             type='text'
             name='location'
             value={inputs.location || ''}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Date
+          <input
+            type='date'
+            name='date'
+            value={inputs.date || ''}
             onChange={handleChange}
           />
         </label>
