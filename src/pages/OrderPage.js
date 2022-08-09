@@ -142,7 +142,6 @@ const OrderPage = (props) => {
         <Button type='submit'  variant='contained'>
           Buy now!
         </Button>
-        {/* <button type="Submit"> Buy now!</button> */}
       </form>
       {preparedArr.map((element) => {
         return (

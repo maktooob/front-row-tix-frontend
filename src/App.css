@@ -5,4 +5,7 @@
 #price-history {
   font-weight: 600;
 }
-
+.card-ctn {
+  display: flex;
+  
+}

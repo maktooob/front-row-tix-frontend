@@ -1,14 +1,23 @@
 import axios from 'axios'
-import {useContext, useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import AddEvent from '../components/AddEvent'
 import IsAdmin from '../components/IsAdmin'
-import {AuthContext} from '../context/auth.context'
+import { AuthContext } from '../context/auth.context'
 import moment from 'moment';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Box, Button, CardActionArea, CardActions } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+
+
 
 const EventListPage = () => {
   const [events, setEvents] = useState('')
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   console.log(user)
   const fetchEvents = () => {
     axios
@@ -21,31 +30,64 @@ const EventListPage = () => {
   }, [])
 
   return (
-    <div>
+    <div >
       <h1>Choose an event</h1>
       <IsAdmin>
         <AddEvent fetchEventsCallback={fetchEvents} />
       </IsAdmin>
-      {events ? ( 
-        events.map((element) => {
-          return (
-            <div key={element._id}>
-              <h3>{element.title}</h3>
-              <img src={element.image} alt={element.title} />
-              <p>{moment(element.date).format("MMM Do YY")}</p>
-              <p>{element.price}</p>
-              <p>{element.location}</p>
-              <p>{element.category}</p>
-              <Link to={`/events/${element._id}`}>
-                {' '}
-                <button>Details</button>
-              </Link>
-            </div>
-          )
-        })
-      ) : (
-        <p>loading...</p>
-      )}
+      <Box sx={{display: "flex", flexWrap: "wrap"}}>
+        {events ? (
+          events.map(element => {
+            return <>
+
+              <Card sx={{ maxWidth: 345, maxHeight: "auto", mb: "1rem", mr: "1rem" }}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={element.image}
+                    alt="green iguana"
+                    sx= {{objectFit: "cover"}}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h4" component="div">
+                      {element.title}
+                    </Typography>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <Box>
+                        <Typography variant="subtitle1" sx={{ display: "flex", alignItems: "center", mb: "1rem" }} color="text.secondary">
+                          <QueryBuilderIcon sx={{ mr: "0.6rem" }} />
+                          {moment(element.date).format("MMM Do YY")}
+                        </Typography>
+                        <Typography sx={{ display: "flex", alignItems: "center" }} variant="subtitle1" color="text.secondary">
+                          <LocationOnIcon sx={{ mr: "0.6rem" }} />
+                          {element.location}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography sx={{ fontSize: "1.5rem" }} color="text.secondary" >
+                          {element.price} €
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                  <Link to={`/events/${element._id}`} style={{ textDecoration: "none" }}><Button sx={{ display: "flex", }} variant='outlined'>
+                    Details
+                  </Button></Link>
+                </CardActions>
+              </Card>
+
+            </>
+          })
+        ) : <>
+          <p>loading</p>
+        </>
+        }
+      </Box>
+
+
     </div>
   )
 }

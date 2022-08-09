@@ -18,10 +18,6 @@ import { Badge } from '@mui/material'
 
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCart';
 
-const { NavLink } = require('react-router-dom')
-
-const pages = ['Home', 'Events', 'Login', 'SignUp']
-const settings = ['Profile', 'My Cart', 'Logout']
 
 const Navbar = (props) => {
   const { logOutUser, user } = useContext(AuthContext)
@@ -46,43 +42,26 @@ const Navbar = (props) => {
 
   return (
     <>
-      <NavLink to='/events'>Browse all events | </NavLink>
-      {!user && (
-        <>
-          <NavLink to='/login'>Login | </NavLink>
-          <NavLink to='/signup'>Signup | </NavLink>
-        </>
-      )}
-      <NavLink to='/cart'>Your Cart {props.cart.length} | </NavLink>
-      <NavLink to={`/user/${user?._id}`}>{user?.username} </NavLink>
-      {user && (
-        <>
-          <button onClick={logOutUser}>Logout</button>
-        </>
-      )}
-
       <AppBar position='static'>
         <Container maxWidth='xl'>
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Typography
-              variant='h6'
-              noWrap
-              component='a'
-              href='/'
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              FTR
-            </Typography>
-
+            <Link to="/" style={{textDecoration: "none"}}>
+              <Typography
+                variant='h6'
+                sx={{
+                  mr: 2,
+                  display: { xs: 'none', md: 'flex' },
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'white',
+                  textDecoration: "none"
+                }}
+              >
+                FTR
+              </Typography>
+            </Link>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size='large'
@@ -159,7 +138,7 @@ const Navbar = (props) => {
                 textDecoration: 'none',
               }}
             >
-              Front Row Tix
+              FTR
             </Typography>
             <Box
               sx={{
