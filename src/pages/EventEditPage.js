@@ -5,8 +5,7 @@ import {AuthContext} from '../context/auth.context'
 
 const EventEditPage = (props) => {
   const {user} = useContext(AuthContext)
-  const storedToken = localStorage.getItem('authToken')
-  console.log('zzz', user)
+
   const location = useLocation()
   let navigate = useNavigate()
   const {id} = useParams()
@@ -22,8 +21,9 @@ const EventEditPage = (props) => {
       image: inputs.image,
     }
     axios
-      .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, updatedEvent, {
-        headers: {Authorization: `Bearer ${storedToken}`},
+      .put(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`, 
+      updatedEvent, 
+      { headers: { user: user?.status},
       })
       .then((res) => {
         console.log(updateEvent)

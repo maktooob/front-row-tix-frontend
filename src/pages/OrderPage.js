@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const OrderPage = (props) => {
 
   let navigate = useNavigate()
-  const {user} = useContext(AuthContext)
+  const {user, authenticateUser } = useContext(AuthContext)
   const [inputs, setInputs] = useState('')
   const [total, setTotal] = useState(null)
   const [orderStatus, setOrderStatus] = useState(false)
@@ -36,7 +36,6 @@ const OrderPage = (props) => {
       ...new Map(newArr.map((item) => [item[key], item])).values(),
     ] // thank you Karina :) -> Reducing Array with duplicates to distinct and showing quantity
 
-    console.log('newArr', newArr, 'set', 'keyarr', arrayUniqueByKey)
     const order = {
       userId: user._id,
       events: arrayUniqueByKey,
@@ -49,9 +48,12 @@ const OrderPage = (props) => {
       },
       totalPrice: total,
     }
-
+    const storedToken = localStorage.getItem("authToken")
     axios
-      .post(process.env.REACT_APP_API_BASE_URL + '/order', order)
+      .post(process.env.REACT_APP_API_BASE_URL + '/order', 
+      order,
+      { headers: { Authorization: `Bearer ${storedToken}` } })
+      
       .then((response) => {
         console.log(response)
         setInputs('')

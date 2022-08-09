@@ -1,20 +1,22 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
+import { AuthContext } from '../context/auth.context';
 
 
 
 
 
 const AddEvent = (props) => {
+  const {user} = useContext(AuthContext)
   let navigate = useNavigate()
   const [inputs, setInputs] = useState({})
   const [image, setImage] = useState("")
-
+  const storedToken = localStorage.getItem("authToken")
   const addEvent = () => {
     const newEvent = {
       title: inputs.title,
@@ -27,7 +29,9 @@ const AddEvent = (props) => {
     }
 
     axios
-      .post(process.env.REACT_APP_API_BASE_URL + '/events', newEvent)
+      .post(process.env.REACT_APP_API_BASE_URL + '/events', 
+      newEvent,
+      { headers: { user: user.status } })
       .then((res) => {
         props.fetchEventsCallback() //add event to List and update the view
 
@@ -37,7 +41,9 @@ const AddEvent = (props) => {
   const handleFileUpload = (e) => {
     const uploadData = new FormData()
     uploadData.append("image", e.target.files[0])
-    axios.post(process.env.REACT_APP_API_BASE_URL + "/upload", uploadData)
+    axios.post(process.env.REACT_APP_API_BASE_URL + "/upload", 
+    uploadData,
+    { headers: { user: user.status } })
       .then(response => {
         console.log("res img upload", response.data.fileUrl)
         setImage(response.data.fileUrl)
@@ -175,6 +181,7 @@ const AddEvent = (props) => {
         <TextField
           id="outlined-select-currency"
           select
+          defaultValue="" 
           label="Select"
           name="category"
           value={inputs.value}

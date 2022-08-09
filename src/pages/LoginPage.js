@@ -1,13 +1,16 @@
+import { Box, TextField, Typography } from '@mui/material'
+import Button from '@mui/material/Button'
 import axios from 'axios'
-import {useContext, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {AuthContext} from '../context/auth.context'
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/auth.context'
+
 
 const LoginPage = () => {
   let navigate = useNavigate()
   const [inputs, setInputs] = useState('')
-  const {storeToken, authenticateUser} = useContext(AuthContext)
-
+  const { storeToken, authenticateUser } = useContext(AuthContext)
+  const [errorMessage, setErrorMessage] = useState("")
   const userLogin = () => {
     const user = {
       username: inputs.username,
@@ -20,47 +23,63 @@ const LoginPage = () => {
         console.log(res.data)
         storeToken(res.data.authToken)
         authenticateUser()
+        navigate('/')
       })
-      .catch((e) => console.log(e))
+      .catch((error) => {
+        const errorDescription = error.response.data.errorMessage;
+        setErrorMessage(errorDescription);
+      })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     userLogin()
-    navigate('/')
+
   }
 
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
-    setInputs((values) => ({...values, [name]: value}))
+    setInputs((values) => ({ ...values, [name]: value }))
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username
-          <input
-            type='text'
-            name='username'
-            value={inputs.username || ''}
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "80vh" }}>
+      <Typography variant="h3" >Login</Typography>
+      <Box width="100vw" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Box component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '20rem' },
+            display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "20rem", alignItems: "center", padding: "1rem"
+          }}
+          onSubmit={handleSubmit}
+          noValidate
+          autoComplete="off">
+          <TextField
+            required
+            variant='outlined'
+            label="Username"
+            type="text"
+            name="username"
+            value={inputs.value}
+            onChange={handleChange}
+
+          />
+          <TextField
+            required
+            variant='outlined'
+            label="Password"
+            type="password"
+            name="password"
+            value={inputs.value}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Password
-          <input
-            type='password'
-            name='password'
-            value={inputs.password || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <button type='submit'>Login</button>
-      </form>
-    </div>
+          <Button variant="outlined" size="large" type="submit" sx={{ width: "100%", mb: "1rem", mt: "1rem" }} >Log In</Button>
+          {errorMessage && <Typography sx={{ fontSize: "small", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
+          <Typography sx={{ color: "text.secondary" }}>Don´t have an account? Create one <Link to="/signup">here</Link>!</Typography>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

@@ -20,7 +20,9 @@ const EventDetailsPage = (props) => {
     }, [])
 
     const deleteFromDB = () => {
-        axios.delete(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`)
+        axios.delete(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`,
+        {headers: { user: user.status }})
+           
         .then(res => navigate("/events"))
         .catch(e => console.log(e))
     }
