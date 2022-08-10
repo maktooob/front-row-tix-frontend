@@ -70,14 +70,14 @@ const AddEvent = (props) => {
 
   return (
     <>
-      <Typography variant="h4" color="white">Add a new Event! <span style={{ fontSize: "small", color: "tomato" }}>(form only visible for admins)</span></Typography>
+      <Typography color='text.secondary' variant="h5" >Add a new Event! <span style={{ fontSize: "small"}}>(form only visible for admins)</span></Typography>
 
       <Box
         component="form"
 
         maxWidth="xl"
         sx={{
-          '& > :not(style)': { m: 1, width: '25ch' }, display: "flex", alignItems: "center", flexWrap: "wrap"
+          '& > :not(style)': { m: 1, width: '25ch' }, display: "flex", alignItems:"center", flexWrap: "wrap", justifyContent:"space-around",
         }}
         noValidate
         autoComplete="off"
@@ -86,77 +86,44 @@ const AddEvent = (props) => {
       >
         <TextField
           required
+          sx={{flex: "1 1 calc(33% - 2em)"}}
           variant='outlined'
           id="outlined-size-small"
           label="Title"
           name="title"
           value={inputs.value}
           onChange={handleChange}
-          inputProps={{borderColor: "white"}}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-            
-          }}
+          inputProps={{ borderColor: "white" }}
         />
         <TextField
           required
+          sx={{flex: "1 1 calc(33% - 2em)"}}
           variant='outlined'
           id="outlined-required"
           label="Description"
           name="description"
           value={inputs.value}
           onChange={handleChange}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-          }}
         />
         <TextField
           required
+          sx={{flex: "1 1 calc(33% - 2em)"}}
           variant='outlined'
           id="outlined-required"
           label="Location"
           name="location"
           value={inputs.value}
           onChange={handleChange}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-          }}
         />
         <TextField
           id="outlined-select-currency"
+          sx={{flex: "1 1 calc(33% - 2em)"}}
           select
           defaultValue=""
           label="Select"
           name="category"
           value={inputs.value}
           onChange={handleChange}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-          }}
         >
           <MenuItem value="sports">
             Sports
@@ -170,25 +137,18 @@ const AddEvent = (props) => {
 
         </TextField>
         <TextField
+        sx={{flex: "1 1 calc(33% - 2em)"}}
           variant='outlined'
           id="outlined-required"
           type="date"
           name="date"
           value={inputs.value}
           onChange={handleChange}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-          }}
         >
           Date
         </TextField>
         <TextField
+        sx={{flex: "1 1 calc(33% - 2em)"}}
           required
           variant='outlined'
           id="outlined-required"
@@ -197,17 +157,9 @@ const AddEvent = (props) => {
           name="price"
           value={inputs.value}
           onChange={handleChange}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-          }}
         />
         <TextField
+        sx={{flex: "1 1 calc(33% - 2em)"}}
           required
           variant='outlined'
           id="outlined-required"
@@ -215,17 +167,14 @@ const AddEvent = (props) => {
           name="image"
           value={inputs.value}
           onChange={(e) => handleFileUpload(e)}
-          sx={{
-            input: {
-              color: "white",
-              border: "white"
-            }
-          }}
-          InputLabelProps={{
-            style: { color: '#fff' },
-          }}
         />
-        <Button  type="submit" variant="contained" >Submit</Button>
+        <button style={{flex: "1 1 calc(33% - 2em)"}} type="submit" class="fancy">
+          <span class="top-key"></span>
+          <span class="text">Add Event</span>
+          <span class="bottom-key-1"></span>
+          <span class="bottom-key-2"></span>
+        </button>
+
       </Box>
 
 

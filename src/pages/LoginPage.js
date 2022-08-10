@@ -45,7 +45,7 @@ const LoginPage = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "80vh" }}>
-      <Typography variant="h3" >Login</Typography>
+      <h1>Login</h1>
       <Box width="100vw" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Box component="form"
           sx={{
@@ -74,9 +74,16 @@ const LoginPage = () => {
             value={inputs.value}
             onChange={handleChange}
           />
-          <Button variant="outlined" size="large" type="submit" sx={{ width: "100%", mb: "1rem", mt: "1rem" }} >Log In</Button>
+          <button type="submit" style={{width: "100%"}} class="fancy" to="/events">
+            <span class="top-key"></span>
+            <span class="text">Log In</span>
+            <span class="bottom-key-1"></span>
+            <span class="bottom-key-2"></span>
+          </button>
           {errorMessage && <Typography sx={{ fontSize: "small", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
           <Typography sx={{ color: "text.secondary" }}>Don´t have an account? Create one <Link to="/signup">here</Link>!</Typography>
+
+
         </Box>
       </Box>
     </Box>

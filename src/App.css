@@ -1,5 +1,6 @@
 body{
   font-family: 'Sora', sans-serif;
+  background-color: rgb(224, 223, 223);
 }
 .accordion-det {
   display: flex;
@@ -11,8 +12,12 @@ body{
 .card-ctn {
   display: flex;
 }
-.home {
+.navbar:hover{
+  z-index: 100;
 
+}
+
+.home {
   background-image: url('./images/sebastian-ervi-Qq2h76kYRFI-unsplash\ \(1\)\ 2.jpg');
   background-repeat: no-repeat;
   height: 100vh; 
@@ -36,16 +41,28 @@ body{
   align-items: center;
 }
 .hero-line{
-  color: white;
+  color:rgb(224, 223, 223);
   font-size: 3rem;
   margin: 0;
 }
 .subhero{
- color: white;
- align-self: flex-start;
+  color:rgb(224, 223, 223);
  font-size: 1.3rem;
- margin-bottom: 3rem;
  margin-top: 0.6rem;
+}
+.headline{
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: rgb(28, 28, 28);
+  border: 1px solid;
+
+
+  
 }
 .fancy {
   background-color: transparent;
@@ -55,10 +72,10 @@ body{
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  float: right;
+ 
   font-weight: 700;
   letter-spacing: 0.05em;
-  margin: 0;
+  margin: 1.5rem 0;
   outline: none;
   overflow: visible;
   padding: 1.25em 2em;
@@ -151,3 +168,8 @@ body{
   right: 0;
   width: 0;
  }
+
+ border-radius: 50px;
+ background: #e0e0e0;
+ box-shadow:  20px 20px 60px #bebebe,
+              -20px -20px 60px #ffffff;

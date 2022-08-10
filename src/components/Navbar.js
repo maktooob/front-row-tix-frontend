@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/auth.context'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -8,19 +8,34 @@ import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { Link } from 'react-router-dom'
 import { Badge } from '@mui/material'
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCart';
-
+import { useLocation } from 'react-router-dom'
+import StadiumIcon from '@mui/icons-material/Stadium';
 
 const Navbar = (props) => {
   const { logOutUser, user } = useContext(AuthContext)
+  const [ bgNav, setBgNav] = useState("rgb(224, 223, 223)")
+  const [ bgNavHover, setBgNavHover] = useState("")
+  const [ fontNav, setFontNav] = useState("rgb(28, 28, 28)")
+  const location = useLocation()
+  console.log("location", location)
+  useEffect(() => {
+    if(location.pathname === "/"){
+      setBgNav("transparent")
+      setFontNav("white")
+      setBgNavHover("rgba(0,0,0,0.6)")
+    }
+    else {
+      setBgNav("rgb(224, 223, 223)")
+    setFontNav("rgb(28, 28, 28)")}
+  }, [location])
   console.log(user)
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -39,27 +54,30 @@ const Navbar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
-
+  console.log("hover", bgNavHover)
+  console.log(bgNav)
   return (
     <>
-      <AppBar position="static"  style={{ background: 'transparent', boxShadow: 'none'}}>
-        <Container maxWidth='xl' >
+      <AppBar className="navbar" position="static"  sx= {{background: `${bgNav}`,boxShadow: 'none', '&:hover': { backgroundColor: `${bgNavHover}`} }}>
+        <Container  maxWidth='xl' >
           <Toolbar disableGutters >
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <Link to="/" style={{ textDecoration: "none" }}><StadiumIcon sx={{ display: { xs: 'none', md: 'flex' },color: `${fontNav}`,  mr: 1 }} /></Link>
             <Link to="/" style={{ textDecoration: "none" }}>
               <Typography
                 variant='h6'
                 sx={{
-                  mr: 2,
+                  mr: 4,
                   display: { xs: 'none', md: 'flex' },
                   fontFamily: 'monospace',
                   fontWeight: 900,
                   letterSpacing: '.3rem',
-                  color: 'white',
-                  textDecoration: "none"
+                  color: `${fontNav}` ,
+                  textDecoration: "none",
+                  letterSpacing: "0.01rem"
                 }}
               >
-                FTR
+                FRONT ROW TIX
+              
               </Typography>
             </Link>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -69,7 +87,7 @@ const Navbar = (props) => {
                 aria-controls='menu-appbar'
                 aria-haspopup='true'
                 onClick={handleOpenNavMenu}
-                color='inherit'
+                sx={{color: `${fontNav}` }}
               >
                 <MenuIcon />
               </IconButton>
@@ -93,35 +111,38 @@ const Navbar = (props) => {
               >
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign='center' >
-                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/}`}>
+                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/`}>
                       Home
                     </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign='center'>
-                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/}`}>
+                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/events`}>
                       Events
                     </Link>
                   </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
+                {!user && <div>
+                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign='center'>
-                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/}`}>
+                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/login`}>
                       Login
                     </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign='center'>
-                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/}`}>
+                    <Link style={{ textDecoration: 'none', color: 'black' }} to={`/signup`}>
                       SignUp
                     </Link>
                   </Typography>
                 </MenuItem>
+                </div>
+                }
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, color: `${fontNav}`,mr: 1 }} />
             <Typography
               variant='h4'
               noWrap
@@ -134,7 +155,7 @@ const Navbar = (props) => {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
+                color: `${fontNav}` ,
                 textDecoration: 'none',
                 fontSize: "1.2rem"
               }}
@@ -148,14 +169,14 @@ const Navbar = (props) => {
                 justifyContent: 'space-between',
               }}
             >
-              <Box sx={{ display: 'flex' }}>
+              <Box sx={{ display: 'flex'}}>
                 <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
-                  <Link style={{ textDecoration: 'none', color: 'white' }} to={`/`}>
+                  <Link style={{ textDecoration: 'none', color: `${fontNav}` }} to={`/`}>
                     Home
                   </Link>
                 </Button>
                 <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
-                  <Link style={{ textDecoration: 'none', color: 'white' }} to={`/events`}>
+                  <Link style={{ textDecoration: 'none', color: `${fontNav}`  }} to={`/events`}>
                     Browse all events
                   </Link>
                 </Button>
@@ -163,12 +184,12 @@ const Navbar = (props) => {
               {!user && (
                 <Box sx={{ display: 'flex' }}>
                   <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
-                    <Link style={{ textDecoration: 'none', color: 'white' }} to={`/login`}>
+                    <Link style={{ textDecoration: 'none', color: `${fontNav}`  }} to={`/login`}>
                       Login
                     </Link>
                   </Button>
                   <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
-                    <Link style={{ textDecoration: 'none', color: 'white' }} to={`/signup`}>
+                    <Link style={{ textDecoration: 'none', color: `${fontNav}`  }} to={`/signup`}>
                       SignUp
                     </Link>
                   </Button>
@@ -179,13 +200,13 @@ const Navbar = (props) => {
             <Box sx={{ display: "flex", flexGrow: 0 }}>
               {user && (
                 <>
-                  <Typography sx={{ mr: "2em", alignSelf: "center", fontSize: "1.1rem" }}>HEY, {user?.username.toUpperCase()}!</Typography>
+                  <Typography sx={{ mr: "2em", alignSelf: "center", color: `${fontNav}`,  fontSize: "1.1rem" }}>HEY, {user?.username.toUpperCase()}!</Typography>
                   <Badge sx={{ alignSelf: "center", mr: "2rem" }} badgeContent={props?.cart.length} color="error">
-                    <Link to="/cart"><ShoppingCartOutlinedIcon sx={{ fontSize: "2rem", textDecoration: "none", color: "white" }} /></Link>
+                    <Link to="/cart"><ShoppingCartOutlinedIcon sx={{ color: `${fontNav}`,  fontSize: "2rem", textDecoration: "none" }} /></Link>
                   </Badge>
-                  <Tooltip title='Open settings'>
+                  <Tooltip title='Open User Menu'>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                    <AccountCircleIcon sx={{ fontSize: "2.5rem", textDecoration: "none", color: `${fontNav}`}}/>
                     </IconButton>
                   </Tooltip>
                 </>

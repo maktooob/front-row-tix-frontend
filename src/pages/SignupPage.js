@@ -38,10 +38,11 @@ const handleChange = (event) => {
 
     return(
         <div>
-            <h1>Create an account!</h1>
+            
             
 
-    <Box width="100vw" sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <Box width="100vw" sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80vh"}}>
+    <h1>Create an account!</h1>
       <Box component="form"
         sx={{
           '& .MuiTextField-root': { m: 1, width: '20rem' },
@@ -79,7 +80,12 @@ const handleChange = (event) => {
           onChange={handleChange}
         />
         {errorMessage && <Typography  sx={{fontSize: "small", color: "tomato"}} className="error-message">{errorMessage}</Typography>}
-        <Button variant="outlined" size="large" type="submit" sx={{width: "100%", mb: "1rem", mt: "1rem"}} >Sign Up</Button>
+        <button type="submit" style={{width: "100%"}} class="fancy" to="/events">
+            <span class="top-key"></span>
+            <span class="text">Sign Up</span>
+            <span class="bottom-key-1"></span>
+            <span class="bottom-key-2"></span>
+          </button>
         <Typography sx={{color: "text.secondary"}}>Already have an account? Log in <Link to="/login">here</Link>!</Typography>
       </Box>
       </Box>

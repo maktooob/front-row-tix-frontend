@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material"
-import ReactPlayer from 'react-player'
-import heroImg from "../images/candy-bar@3000x2000px.svg"
+
 import { Link } from 'react-router-dom';
 
 
@@ -23,11 +22,6 @@ const Homepage = () => {
                     </Link>
                 </div>
             </Box>
-
-
-
-
-
         </div>
     )
 }
