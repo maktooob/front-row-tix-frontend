@@ -75,10 +75,10 @@ const LoginPage = () => {
             onChange={handleChange}
           />
           <button type="submit" style={{width: "100%"}} class="fancy" to="/events">
-            <span class="top-key"></span>
-            <span class="text">Log In</span>
-            <span class="bottom-key-1"></span>
-            <span class="bottom-key-2"></span>
+            <span className="top-key"></span>
+            <span className="text">Log In</span>
+            <span className="bottom-key-1"></span>
+            <span className="bottom-key-2"></span>
           </button>
           {errorMessage && <Typography sx={{ fontSize: "small", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
           <Typography sx={{ color: "text.secondary" }}>Don´t have an account? Create one <Link to="/signup">here</Link>!</Typography>

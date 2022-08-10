@@ -17,7 +17,6 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 const EventListPage = () => {
   const [events, setEvents] = useState('')
-  const { user } = useContext(AuthContext)
   const [showForm, setShowForm] = useState(false)
   const unrollForm = () => {
     setShowForm(true)
@@ -51,12 +50,12 @@ const EventListPage = () => {
           <AddEvent component="div" maxWidth="50vw" fetchEventsCallback={fetchEvents} />}
       </IsAdmin>
 
-      <Box maxWidth='xl' sx={{ display: 'flex', flexWrap: 'wrap' }}>
+      <Box maxWidth='xl' sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: "center", alignItems: "center" }}>
         {events ? (
           events.map((element) => {
             return (
-              <>
-                <Card  sx={{ maxWidth: 345, maxHeight: 'auto', mb: '1rem', mr: '1rem', mt: "2rem", borderRadius: "10px", boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff' }}>
+              <div style={{flex: "1 1 1", flexWrap: "wrap", minWidth: "18rem"}} key={element._id}>
+                <Card  key={element._id} sx={{ maxWidth: 500, mb: '1rem', mr: '1rem', mt: "2rem", borderRadius: "10px", boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff' }}>
                   <CardActionArea component={Link} to={`/events/${element._id}`}>
                     <CardMedia component='img' height='180' image={element.image} alt='green iguana' sx={{ objectFit: 'cover' }} />
                     <CardContent>
@@ -83,15 +82,15 @@ const EventListPage = () => {
                     </CardContent>
                   </CardActionArea>
                   <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <Link class="fancy" to={`/events/${element._id}`}>
-                        <span class="top-key"></span>
-                        <span class="text">Details</span>
-                        <span class="bottom-key-1"></span>
-                        <span class="bottom-key-2"></span>
+                  <Link className="fancy" to={`/events/${element._id}`}>
+                        <span className="top-key"></span>
+                        <span className="text">Details</span>
+                        <span className="bottom-key-1"></span>
+                        <span className="bottom-key-2"></span>
                     </Link>
                   </CardActions>
                 </Card>
-              </>
+              </div>
             )
           })
         ) : (

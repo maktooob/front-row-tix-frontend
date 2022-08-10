@@ -81,10 +81,10 @@ const handleChange = (event) => {
         />
         {errorMessage && <Typography  sx={{fontSize: "small", color: "tomato"}} className="error-message">{errorMessage}</Typography>}
         <button type="submit" style={{width: "100%"}} class="fancy" to="/events">
-            <span class="top-key"></span>
-            <span class="text">Sign Up</span>
-            <span class="bottom-key-1"></span>
-            <span class="bottom-key-2"></span>
+            <span className="top-key"></span>
+            <span className="text">Sign Up</span>
+            <span className="bottom-key-1"></span>
+            <span className="bottom-key-2"></span>
           </button>
         <Typography sx={{color: "text.secondary"}}>Already have an account? Log in <Link to="/login">here</Link>!</Typography>
       </Box>

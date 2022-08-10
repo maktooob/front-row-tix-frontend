@@ -44,11 +44,14 @@ body{
   color:rgb(224, 223, 223);
   font-size: 3rem;
   margin: 0;
+  text-shadow:2px 4px 25px #000000
 }
+
 .subhero{
   color:rgb(224, 223, 223);
  font-size: 1.3rem;
  margin-top: 0.6rem;
+ text-shadow:2px 4px 25px #000000
 }
 .headline{
   margin-bottom: 3rem;
@@ -169,7 +172,3 @@ body{
   width: 0;
  }
 
- border-radius: 50px;
- background: #e0e0e0;
- box-shadow:  20px 20px 60px #bebebe,
-              -20px -20px 60px #ffffff;

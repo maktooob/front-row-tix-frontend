@@ -1,12 +1,11 @@
 import axios from 'axios'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { AuthContext } from '../context/auth.context';
-
 
 
 
@@ -17,7 +16,8 @@ const AddEvent = (props) => {
   let navigate = useNavigate()
   const [inputs, setInputs] = useState({})
   const [image, setImage] = useState("")
-  const addEvent = () => {
+
+  const addEvent = (uploadImage) => {
     const newEvent = {
       title: inputs.title,
       description: inputs.description,
@@ -25,7 +25,7 @@ const AddEvent = (props) => {
       location: inputs.location,
       date: inputs.date,
       price: inputs.price,
-      image: image,
+      image: uploadImage,
     }
 
     axios
@@ -34,30 +34,29 @@ const AddEvent = (props) => {
         { headers: { user: user.status } })
       .then((res) => {
         props.fetchEventsCallback() //add event to List and update the view
-
       })
       .catch(e => console.log("issue creating an event", e))
   }
-  const handleFileUpload = (e) => {
+  const handleEventUpload = () => {
     const uploadData = new FormData()
-    uploadData.append("image", e.target.files[0])
+    uploadData.append("image", image)
     axios.post(process.env.REACT_APP_API_BASE_URL + "/upload",
       uploadData,
       { headers: { user: user.status } })
       .then(response => {
-        console.log("res img upload", response.data.fileUrl)
-        setImage(response.data.fileUrl)
-        console.log("set image", image)
+        addEvent(response.data.fileUrl)
       })
       .catch(e => console.log(e))
   }
 
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    addEvent()
-    setInputs('')
+    handleEventUpload()
     setImage("")
+    e.target.reset()
     navigate('/events')
+    
   }
   const handleChange = (event) => {
     const name = event.target.name
@@ -66,15 +65,12 @@ const AddEvent = (props) => {
 
   }
 
-
-
   return (
     <>
       <Typography color='text.secondary' variant="h5" >Add a new Event! <span style={{ fontSize: "small"}}>(form only visible for admins)</span></Typography>
-
+     
       <Box
         component="form"
-
         maxWidth="xl"
         sx={{
           '& > :not(style)': { m: 1, width: '25ch' }, display: "flex", alignItems:"center", flexWrap: "wrap", justifyContent:"space-around",
@@ -93,7 +89,6 @@ const AddEvent = (props) => {
           name="title"
           value={inputs.value}
           onChange={handleChange}
-          inputProps={{ borderColor: "white" }}
         />
         <TextField
           required
@@ -166,17 +161,17 @@ const AddEvent = (props) => {
           type="file"
           name="image"
           value={inputs.value}
-          onChange={(e) => handleFileUpload(e)}
+          onChange={(e) => setImage(e.target.files[0])}
         />
-        <button style={{flex: "1 1 calc(33% - 2em)"}} type="submit" class="fancy">
-          <span class="top-key"></span>
-          <span class="text">Add Event</span>
-          <span class="bottom-key-1"></span>
-          <span class="bottom-key-2"></span>
+        <button style={{flex: "1 1 calc(33% - 2em)"}} type="submit" className="fancy">
+          <span className="top-key"></span>
+          <span className="text">Add Event</span>
+          <span className="bottom-key-1"></span>
+          <span className="bottom-key-2"></span>
         </button>
-
+        
       </Box>
-
+ 
 
     </>
   )
