@@ -57,12 +57,12 @@ const EventListPage = () => {
               <div style={{flex: "1 1 1", flexWrap: "wrap", minWidth: "18rem"}} key={element._id}>
                 <Card  key={element._id} sx={{ maxWidth: 500, mb: '1rem', mr: '1rem', mt: "2rem", borderRadius: "10px", boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff' }}>
                   <CardActionArea component={Link} to={`/events/${element._id}`}>
-                    <CardMedia component='img' height='180' image={element.image} alt='green iguana' sx={{ objectFit: 'cover' }} />
+                    <CardMedia component='img' height='180' image={element.image} alt='event' sx={{ objectFit: 'cover' }} />
                     <CardContent>
                       <Typography gutterBottom variant='h4' component='div'>
                         {element.title}
                       </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <Box sx={{ display: 'flex', alignItems: "flex-end", justifyContent: 'space-between' }}>
                         <Box>
                           <Typography variant='subtitle1' sx={{ display: 'flex', alignItems: 'center', mb: '1rem' }} color='text.secondary'>
                             <QueryBuilderIcon sx={{ mr: '0.6rem' }} />
