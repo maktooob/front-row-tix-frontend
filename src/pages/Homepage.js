@@ -1,44 +1,32 @@
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material"
-
-
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player'
+import heroImg from "../images/candy-bar@3000x2000px.svg"
+import { Link } from 'react-router-dom';
 
 
 
 const Homepage = () => {
 
-    return(
-        <div>
-            <h1>FRONT ROW TIX</h1>
+    return (
+        <div className="home">
 
-            <section>
-      <ReactPlayer
-        url
-        playing
-        loop
-        muted
-        width="100%"
-        height="100%"
-      />
-      <div>
-        <Box
-          height="100%"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          color="#fff"
-        >
-          <Typography variant="h3" component="h1">
-            Title Goes Here
-          </Typography>
-          <Button color="primary" variant="contained">
-            Click Me
-          </Button>
-        </Box>
-      </div>
-    </section>
+            <Box maxWidth="xl">
+                <div className="left">
+                    <h1 className="hero-line">GRAB YOUR TICKET</h1>
+                    <p className="subhero">and create everlasting memories</p>
+                    <Link class="fancy" to="/events">
+                        <span class="top-key"></span>
+                        <span class="text">Buy Tickets</span>
+                        <span class="bottom-key-1"></span>
+                        <span class="bottom-key-2"></span>
+                    </Link>
+                </div>
+            </Box>
+
+
+
+
 
         </div>
     )

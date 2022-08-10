@@ -42,18 +42,18 @@ const Navbar = (props) => {
 
   return (
     <>
-      <AppBar position='static'>
-        <Container maxWidth='xl'>
-          <Toolbar disableGutters>
+      <AppBar position="static"  style={{ background: 'transparent', boxShadow: 'none'}}>
+        <Container maxWidth='xl' >
+          <Toolbar disableGutters >
             <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Link to="/" style={{textDecoration: "none"}}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Typography
                 variant='h6'
                 sx={{
                   mr: 2,
                   display: { xs: 'none', md: 'flex' },
                   fontFamily: 'monospace',
-                  fontWeight: 700,
+                  fontWeight: 900,
                   letterSpacing: '.3rem',
                   color: 'white',
                   textDecoration: "none"
@@ -92,7 +92,7 @@ const Navbar = (props) => {
                 }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>
+                  <Typography textAlign='center' >
                     <Link style={{ textDecoration: 'none', color: 'black' }} to={`/}`}>
                       Home
                     </Link>
@@ -123,7 +123,7 @@ const Navbar = (props) => {
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
-              variant='h5'
+              variant='h4'
               noWrap
               component='a'
               href=''
@@ -136,6 +136,7 @@ const Navbar = (props) => {
                 letterSpacing: '.3rem',
                 color: 'inherit',
                 textDecoration: 'none',
+                fontSize: "1.2rem"
               }}
             >
               FTR
@@ -148,12 +149,12 @@ const Navbar = (props) => {
               }}
             >
               <Box sx={{ display: 'flex' }}>
-                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
                   <Link style={{ textDecoration: 'none', color: 'white' }} to={`/`}>
                     Home
                   </Link>
                 </Button>
-                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
                   <Link style={{ textDecoration: 'none', color: 'white' }} to={`/events`}>
                     Browse all events
                   </Link>
@@ -161,12 +162,12 @@ const Navbar = (props) => {
               </Box>
               {!user && (
                 <Box sx={{ display: 'flex' }}>
-                  <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                  <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
                     <Link style={{ textDecoration: 'none', color: 'white' }} to={`/login`}>
                       Login
                     </Link>
                   </Button>
-                  <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                  <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
                     <Link style={{ textDecoration: 'none', color: 'white' }} to={`/signup`}>
                       SignUp
                     </Link>
@@ -178,9 +179,9 @@ const Navbar = (props) => {
             <Box sx={{ display: "flex", flexGrow: 0 }}>
               {user && (
                 <>
-                  <Typography sx={{ mr: "2em", alignSelf: "center" }}>Hey, {user?.username}!</Typography>
-                  <Badge sx={{alignSelf: "center", mr: "2rem"}}  badgeContent={props?.cart.length} color="error">
-                    <Link to="/cart"><ShoppingCartOutlinedIcon sx={{fontSize: "1.7rem", textDecoration: "none", color: "white"}} /></Link>
+                  <Typography sx={{ mr: "2em", alignSelf: "center", fontSize: "1.1rem" }}>HEY, {user?.username.toUpperCase()}!</Typography>
+                  <Badge sx={{ alignSelf: "center", mr: "2rem" }} badgeContent={props?.cart.length} color="error">
+                    <Link to="/cart"><ShoppingCartOutlinedIcon sx={{ fontSize: "2rem", textDecoration: "none", color: "white" }} /></Link>
                   </Badge>
                   <Tooltip title='Open settings'>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -28,12 +28,12 @@ const EventListPage = () => {
   }, [])
 
   return (
-    <div>
-      <h1>Choose an event</h1>
+    <Box maxWidth="xxl" sx={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+      <Typography variant="h1" style={{color: "white"}}>Choose an event</Typography>
       <IsAdmin>
-        <AddEvent fetchEventsCallback={fetchEvents} />
+        <AddEvent component="div" maxWidth="50vw" fetchEventsCallback={fetchEvents} />
       </IsAdmin>
-      <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
+      <Box maxWidth='xl'  sx={{display: 'flex', flexWrap: 'wrap'}}>
         {events ? (
           events.map((element) => {
             return (
@@ -81,7 +81,7 @@ const EventListPage = () => {
           </>
         )}
       </Box>
-    </div>
+    </Box>
   )
 }
 
