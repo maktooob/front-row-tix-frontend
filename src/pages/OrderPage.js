@@ -4,15 +4,15 @@ import {AuthContext} from '../context/auth.context'
 import Button from '@mui/material/Button'
 import {Link, useNavigate} from 'react-router-dom'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import {Box, TextField} from '@mui/material'
+import {Box, TextField, Typography} from '@mui/material'
+
 
 const OrderPage = (props) => {
-  const {user, authenticateUser} = useContext(AuthContext)
+  const {user} = useContext(AuthContext)
   const [inputs, setInputs] = useState('')
   const [total, setTotal] = useState(null)
   const [orderStatus, setOrderStatus] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleChange = (event) => {
     const name = event.target.name
@@ -55,6 +55,16 @@ const OrderPage = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!inputs.name || !inputs.street || !inputs.zip || !inputs.city    || inputs.country === 0 || (total === undefined || 0) ) {
+      setErrorMessage("Please fill out the required fields.")
+      return
+    }
+    console.log(props.cart)
+    if(props.cart.length < 1){
+      setErrorMessage("Your cart is empty.")
+      return
+    }
+    
     addOrder()
     setTotal(0)
     setOrderStatus(true)
@@ -75,6 +85,8 @@ const OrderPage = (props) => {
 
   return (
     <>
+          
+
       {orderStatus ? (
         <div className='success-page'>
           <div className='success-ctn'>
@@ -125,12 +137,14 @@ const OrderPage = (props) => {
               <TextField required variant='outlined' label='City' type='text' name='city' value={inputs.value} onChange={handleChange} />
               <TextField required variant='outlined' label='Zip Code' type='text' name='zip' value={inputs.value} onChange={handleChange} />
               <TextField required variant='outlined' label='Country' type='text' name='country' value={inputs.value} onChange={handleChange} />
+              {errorMessage && <Typography sx={{ fontSize: "medium", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
               <button type='submit' style={{width: '100%'}} class='fancy' to='/events'>
                 <span className='top-key'></span>
                 <span className='text'>Buy now!</span>
                 <span className='bottom-key-1'></span>
                 <span className='bottom-key-2'></span>
               </button>
+
             </Box>
 
             <div className='order'>

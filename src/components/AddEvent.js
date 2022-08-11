@@ -37,8 +37,6 @@ const AddEvent = (props) => {
         setErrorMessage(errorDescription);
       })
   }
- 
-
 
   const handleSubmit = (e) => {
 
@@ -71,8 +69,6 @@ const AddEvent = (props) => {
 
   }
 
-
-
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
@@ -82,7 +78,7 @@ const AddEvent = (props) => {
   return (
     <>
       <Typography color='text.secondary' variant="h5" >Add a new Event! <span style={{ fontSize: "medium" }}>(form only visible for admins)</span></Typography>
-      {errorMessage && <Typography sx={{ fontSize: "small", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
+      {errorMessage && <Typography sx={{ fontSize: "medium", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
       <Box
         component="form"
         ref={formRef}

@@ -69,7 +69,7 @@ const CartPage = (props) => {
         <div className="total-ctn">
         <div className="proceed">
           <p className="total">Total: <span id="total-margin">{total} €</span></p>
-          <Link class="fancy" to="/order">
+          <Link className="fancy" to="/order">
                         <span className="top-key"></span>
                         <span className="text">Proceed to checkout</span>
                         <span className="bottom-key-1"></span>
