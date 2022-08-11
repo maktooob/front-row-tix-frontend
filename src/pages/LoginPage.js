@@ -81,7 +81,7 @@ const LoginPage = () => {
             <span className="bottom-key-1"></span>
             <span className="bottom-key-2"></span>
           </button>
-          {errorMessage && <Typography sx={{ fontSize: "small", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
+          {errorMessage && <Typography sx={{ textAlign: "center", fontSize: "medium", color: "tomato" }} className="error-message">{errorMessage}</Typography>}
           <Typography sx={{ color: "text.secondary" }}>Don´t have an account? Create one <Link to="/signup">here</Link>!</Typography>
 
 

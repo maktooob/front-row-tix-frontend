@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useContext, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -72,6 +71,7 @@ const AddEvent = (props) => {
 
     setErrorMessage("")
     setImage("")
+    setInputs("")
     e.target.reset()
 
   }

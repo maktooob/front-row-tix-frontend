@@ -22,6 +22,7 @@ const EventDetailsPage = (props) => {
         searchDB()
     }, [])
 
+
     const deleteFromDB = () => {
         axios.delete(`${process.env.REACT_APP_API_BASE_URL}/events/${id}`,
             { headers: { user: user.status } })
@@ -54,6 +55,7 @@ const EventDetailsPage = (props) => {
                             <p className="description">{foundEvent.description}</p>
                         </div>
                     </div>
+                    {user &&
                     <div className="details-btn">
                         <button onClick={() => { props.addToCartCallback(id) }} style={{ width: "100%", margin: "0" }} class="fancy" to="/events">
                             <span className="top-key"></span>
@@ -62,6 +64,7 @@ const EventDetailsPage = (props) => {
                             <span className="bottom-key-2"></span>
                         </button>
                     </div>
+                    }
                 </div>
 
 

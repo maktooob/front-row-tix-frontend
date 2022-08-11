@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {useContext, useState} from 'react'
+import {useContext, useRef, useState} from 'react'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
 import {AuthContext} from '../context/auth.context'
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 const EventEditPage = (props) => {
   const {user} = useContext(AuthContext)
-
+  const formRef = useRef() 
   const location = useLocation()
   let navigate = useNavigate()
   const {id} = useParams()
@@ -30,7 +30,7 @@ const EventEditPage = (props) => {
       { headers: { user: user?.status},
       })
       .then((res) => {
-        console.log(updateEvent)
+        navigate(`/events/${id}`)
       })
       .catch((e) => console.log(e))
   }
@@ -49,7 +49,6 @@ const EventEditPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     handleEventUpload()
-    navigate(`/events/${id}`)
   }
   const handleChange = (event) => {
     const name = event.target.name
@@ -61,6 +60,7 @@ const EventEditPage = (props) => {
       <h1 style={{textAlign: "center"}}>Happy editing :) !!</h1>
 
       <Box
+        ref={formRef}
         component="form"
         maxWidth="xl"
         sx={{
@@ -95,9 +95,10 @@ const EventEditPage = (props) => {
         />
         <TextField
           required
-          sx={{flex: "1 1 calc(33% - 2em)"}}
+          sx={{InputLabelProps: {color: "error"}, flex: "1 1 calc(33% - 2em)"}}
           variant='outlined'
           id="outlined-required"
+          InputLabelProps=""
           label="Location"
           name="location"
           defaultValue={location.state.foundEvent.location}
@@ -108,6 +109,7 @@ const EventEditPage = (props) => {
           id="outlined-select-currency"
           sx={{flex: "1 1 calc(33% - 2em)"}}
           select
+
           defaultValue=""
           label="Select"
           name="category"
@@ -158,9 +160,9 @@ const EventEditPage = (props) => {
           value={inputs.value}
           onChange={(e) => setImage(e.target.files[0])}
         />
-        <button style={{flex: "1 1 calc(33% - 2em)"}} type="submit" className="fancy">
+        <button style={{flex: "1 1 calc(33% - 2em)"}} type="submit" onClick={() => formRef.current.reportValidity()} className="fancy">
           <span className="top-key"></span>
-          <span className="text">Add Event</span>
+          <span className="text">Update Event</span>
           <span className="bottom-key-1"></span>
           <span className="bottom-key-2"></span>
         </button>
