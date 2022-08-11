@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import axios from "axios"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 
 
@@ -8,6 +8,7 @@ const SignupPage = () => {
 let navigate = useNavigate()
 const [errorMessage, setErrorMessage] = useState("")
 const [inputs, setInputs] = useState("")
+const formRef = useRef()
 const userSignup = () => {
     const newUser = {
         username: inputs.username,
@@ -43,7 +44,10 @@ const handleChange = (event) => {
 
     <Box width="100vw" sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "80vh"}}>
     <h1>Create an account!</h1>
-      <Box component="form"
+
+      <Box 
+        component="form"
+        ref={formRef}
         sx={{
           '& .MuiTextField-root': { m: 1, width: '20rem' },
           display: "flex", flexDirection: "column", justifyContent:"center",  maxWidth: "20rem", alignItems: "center", padding: "1rem"
@@ -79,8 +83,8 @@ const handleChange = (event) => {
           value={inputs.value}
           onChange={handleChange}
         />
-        {errorMessage && <Typography  sx={{fontSize: "small", color: "tomato"}} className="error-message">{errorMessage}</Typography>}
-        <button type="submit" style={{width: "100%"}} class="fancy" to="/events">
+        {errorMessage && <Typography  sx={{fontSize: "medium", color: "tomato"}} className="error-message">{errorMessage}</Typography>}
+        <button type="submit"  onClick={() => formRef.current.reportValidity()} style={{width: "100%"}} className="fancy" to="/events">
             <span className="top-key"></span>
             <span className="text">Sign Up</span>
             <span className="bottom-key-1"></span>

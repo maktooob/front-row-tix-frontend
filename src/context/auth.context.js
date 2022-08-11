@@ -8,7 +8,6 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState(null)
 
-  console.log("authwrapper working")
   const storeToken = (token) => {
     localStorage.setItem('authToken', token)
   }
@@ -26,7 +25,7 @@ function AuthProviderWrapper(props) {
         .then((response) => {
           // If the server verifies that JWT token is valid
           const payload = response.data
-          console.log(response.data)
+
           // Update state variables
           setIsLoggedIn(true)
           setIsLoading(false)

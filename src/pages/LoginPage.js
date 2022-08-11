@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import axios from 'axios'
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/auth.context'
 
@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [inputs, setInputs] = useState('')
   const { storeToken, authenticateUser } = useContext(AuthContext)
   const [errorMessage, setErrorMessage] = useState("")
+  const formRef = useRef()
   const userLogin = () => {
     const user = {
       username: inputs.username,
@@ -20,7 +21,6 @@ const LoginPage = () => {
       .post(process.env.REACT_APP_API_BASE_URL + '/login', user)
       .then((res) => {
         console.log('login successful')
-        console.log(res.data)
         storeToken(res.data.authToken)
         authenticateUser()
         navigate('/')
@@ -48,6 +48,7 @@ const LoginPage = () => {
       <h1>Login</h1>
       <Box width="100vw" sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Box component="form"
+          ref={formRef}
           sx={{
             '& .MuiTextField-root': { m: 1, width: '20rem' },
             display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: "20rem", alignItems: "center", padding: "1rem"
@@ -74,7 +75,7 @@ const LoginPage = () => {
             value={inputs.value}
             onChange={handleChange}
           />
-          <button type="submit" style={{width: "100%"}} class="fancy" to="/events">
+          <button type="submit" onClick={() => formRef.current.reportValidity()} style={{width: "100%"}} class="fancy" to="/events">
             <span className="top-key"></span>
             <span className="text">Log In</span>
             <span className="bottom-key-1"></span>

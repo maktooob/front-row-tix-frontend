@@ -10,7 +10,6 @@ const { useParams, Link, useNavigate } = require("react-router-dom");
 
 const EventDetailsPage = (props) => {
     const { user } = useContext(AuthContext)
-    console.log("user", user)
     let navigate = useNavigate()
     const { id } = useParams()
     const [foundEvent, setFoundEvent] = useState({})

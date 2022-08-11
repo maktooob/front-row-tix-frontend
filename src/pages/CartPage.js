@@ -6,7 +6,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const CartPage = (props) => {
 
-  //const {user} = useContext(AuthContext)
   const [cart, setCart] = useState([])
   const [total, setTotal] = useState(null)
   const newArr = [...cart, props.cart]
@@ -33,7 +32,6 @@ const CartPage = (props) => {
   }, [preparedArr])
 
 
-  console.log("XXXX", preparedArr, "XXXXXXXXXXXXXXXXX")
   return (
     <div>
 
@@ -42,7 +40,7 @@ const CartPage = (props) => {
         <div className="cart-head">
 
         <Link className="back-link" style={{ display: "inline", textDecoration: 'none', color: 'black' }} to="/events"><ArrowBackIosIcon sx={{ fontSize: "3rem", marginLeft: "2rem", textDecoration: "none" }} /></Link>
-        <h1 className="cart-title">Your shopping cart!</h1>
+        <h1 className="cart-title">YOUR SHOPPING CART</h1>
         <div className="pseudo"><Link className="back-link" style={{ display: "inline", textDecoration: 'none', color: 'black' }} to="/events"><ArrowBackIosIcon sx={{ fontSize: "3rem", marginLeft: "2rem", textDecoration: "none" }} /></Link></div>
         </div>
         <div className="cart">
@@ -56,14 +54,10 @@ const CartPage = (props) => {
                   <p>Location:   {element.location}</p>
                   <div className="quant"><p>Quantity:   {element.quantity}</p>
                     <div className="cart-btn">
-
                       <span onClick={() => { props.addToCartCallback(element._id) }}><ExpandLessIcon style={{ cursor: "pointer" }} /></span>
                       <span onClick={() => { props.removeFromCartCallback(element._id) }}><ExpandMoreIcon style={{ cursor: "pointer" }} /></span>
-
-
                     </div></div>
                   <p id="price-cart">Price:   {element.price} €</p>
-
                 </div>
               )
             })
@@ -71,6 +65,7 @@ const CartPage = (props) => {
             <p>loading...</p>
           )}
         </div>
+        {cart[0]?.length > 0 ?
         <div className="total-ctn">
         <div className="proceed">
           <p className="total">Total: <span id="total-margin">{total} €</span></p>
@@ -82,6 +77,7 @@ const CartPage = (props) => {
                     </Link>
         </div>
         </div>
+        : <h3 style={{textAlign: "center", marginTop: "4rem"}}>Your cart is empty</h3>}
       </div>
     </div>
   )

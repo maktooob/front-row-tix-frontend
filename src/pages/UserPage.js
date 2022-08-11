@@ -16,7 +16,6 @@ const UserPage = () => {
 
   const [orders, setOrders] = useState('')
   const {user} = useContext(AuthContext)
-  console.log(user)
   const fetchOrders = () => {
     axios
       .get(`${process.env.REACT_APP_API_BASE_URL}/orders/${id}`)
@@ -25,9 +24,8 @@ const UserPage = () => {
   }
   useEffect(() => {
     fetchOrders()
-    console.log('orders', orders)
   }, [])
-  console.log('orders', orders)
+
 
   return (
     <div>
@@ -38,11 +36,12 @@ const UserPage = () => {
 <div className="pseudo"><Link className="back-link" style={{ display: "inline", textDecoration: 'none', color: 'black' }} to="/events"><ArrowBackIosIcon sx={{ fontSize: "3rem", marginLeft: "2rem", textDecoration: "none" }} /></Link></div>
 </div>
     <div className='acc-ctn'>
-      {orders ? (
+      {orders.length > 0 ? (
+        console.log(orders),
         orders.map((order, index) => {
           return (
-            <div className="acc-ctn">
-              <Accordion style={{border: "1px solid", width: "80vw", padding: "1rem", marginTop: "1rem"}}>
+            <div key={order._id}  className="acc-ctn">
+              <Accordion key={order._id} style={{border: "1px solid", width: "80vw", padding: "1rem", marginTop: "1rem"}}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
@@ -59,9 +58,10 @@ const UserPage = () => {
                     Total cost: {order.totalPrice} €
                   </Typography>
                 </AccordionSummary >
-                {order.events.map((event) => {
+                {order &&
+                order?.events.map((event) => {
                   return (
-                    <div>
+                    <div key={event.eventId._id}>
                       <AccordionDetails className='accordion-det'>
                         <Typography>Event: {event.eventId.title}</Typography>
                         <Typography className='typo' sx = {{display: {md: "flex", xs: "none"}}}>
@@ -79,12 +79,11 @@ const UserPage = () => {
                   )
                 })}
               </Accordion>
-
             </div>
           )
         })
       ) : (
-        <div>no orders</div>
+        <p>YOU HAVE NO ORDERS YET</p>
       )}
     </div>
     </div>

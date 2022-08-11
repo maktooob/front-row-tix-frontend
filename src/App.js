@@ -33,7 +33,7 @@ function App() {
   const myImage = cld.image('docs/models');
 
   const {user} = useContext(AuthContext)
-  console.log(user)
+
   const [cart, setCart] = useState([])
   const addToCart = (id) => {
     axios

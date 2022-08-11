@@ -25,7 +25,7 @@ const Navbar = (props) => {
   const [bgNavHover, setBgNavHover] = useState("")
   const [fontNav, setFontNav] = useState("rgb(28, 28, 28)")
   const location = useLocation()
-  console.log("location", location)
+
   useEffect(() => {
     if (location.pathname === "/") {
       setBgNav("transparent")
@@ -39,7 +39,7 @@ const Navbar = (props) => {
     }
     
   }, [location])
-  console.log(user)
+
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
 
@@ -57,8 +57,7 @@ const Navbar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
-  console.log("hover", bgNavHover)
-  console.log(bgNav)
+
   return (
     <>
       <AppBar className="navbar" position="static" sx={{ background:  `${bgNav}`, boxShadow: 'none', '&:hover': { backgroundColor: `${bgNavHover}` } }}>

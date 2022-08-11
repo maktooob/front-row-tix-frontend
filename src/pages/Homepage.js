@@ -14,7 +14,7 @@ const Homepage = () => {
                 <div className="left">
                     <h1 className="hero-line">GRAB YOUR TICKET</h1>
                     <p className="subhero">and create everlasting memories</p>
-                    <Link class="fancy" to="/events">
+                    <Link className="fancy" to="/events">
                         <span className="top-key"></span>
                         <span className="text">Buy Tickets</span>
                         <span className="bottom-key-1"></span>
