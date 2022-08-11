@@ -9,7 +9,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { Box, CardActionArea, CardActions } from '@mui/material'
+import { Box, CardActionArea, CardActions, TextField } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder'
 import AddCircleOutline from '@mui/icons-material/AddCircleOutline'
@@ -18,6 +18,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 const EventListPage = () => {
   const [events, setEvents] = useState('')
   const [showForm, setShowForm] = useState(false)
+  const [searchInput, setSearchInput] = useState("")
   const unrollForm = () => {
     setShowForm(true)
   }
@@ -36,13 +37,19 @@ const EventListPage = () => {
   }, [])
 
   return (
+    <>
+    
     <Box maxWidth="xxl" sx={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
       <div className="headline">
         <h1 className='hero-line'>ALL OUR EVENTS</h1>
         <p className='subhero'>Browse through all our events and pick your favorite!</p>
       </div>
       <IsAdmin>
+      <form onSubmit={(e) => setSearchInput(e.target.value)}>
+      <TextField sx={{width: "30vw"}} label="search for events"/>
+      </form>
         <div>
+
           <span onClick={unrollForm}><AddCircleOutline sx={{ cursor: "pointer", fontSize: "2rem", textDecoration: "none", color: "black" }} /></span>
           <span onClick={reUnrollForm}><RemoveCircleOutlineIcon sx={{ cursor: "pointer", fontSize: "2rem", textDecoration: "none", color: "black" }} /></span>
         </div>
@@ -100,7 +107,7 @@ const EventListPage = () => {
         )}
       </Box>
     </Box>
-  )
+    </>)
 }
 
 export default EventListPage
