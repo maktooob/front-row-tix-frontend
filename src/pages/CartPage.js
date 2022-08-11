@@ -71,6 +71,7 @@ const CartPage = (props) => {
             <p>loading...</p>
           )}
         </div>
+        <div className="total-ctn">
         <div className="proceed">
           <p className="total">Total: <span id="total-margin">{total} €</span></p>
           <Link class="fancy" to="/order">
@@ -79,6 +80,7 @@ const CartPage = (props) => {
                         <span className="bottom-key-1"></span>
                         <span className="bottom-key-2"></span>
                     </Link>
+        </div>
         </div>
       </div>
     </div>

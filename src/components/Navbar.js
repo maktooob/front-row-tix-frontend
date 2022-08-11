@@ -61,10 +61,10 @@ const Navbar = (props) => {
   console.log(bgNav)
   return (
     <>
-      <AppBar className="navbar" position="static" sx={{ background: `${bgNav}`, boxShadow: 'none', '&:hover': { backgroundColor: `${bgNavHover}` } }}>
+      <AppBar className="navbar" position="static" sx={{ background:  `${bgNav}`, boxShadow: 'none', '&:hover': { backgroundColor: `${bgNavHover}` } }}>
         <Container maxWidth='xl' >
           <Toolbar disableGutters >
-            <Link to="/" style={{ textDecoration: "none" }}><StadiumIcon sx={{ display: { xs: 'none', md: 'flex' }, color: `${fontNav}`, mr: 1 }} /></Link>
+            <Link to="/" style={{ textDecoration: "none" }}><StadiumIcon sx={{ display: { xs: 'none', md: 'flex' }, color: `${fontNav}` , mr: 1 }} /></Link>
             <Link to="/" style={{ textDecoration: "none" }}>
               <Typography
                 variant='h6'
@@ -158,7 +158,7 @@ const Navbar = (props) => {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: `${fontNav}`,
+                color: {md: `${fontNav}`, xs: "white" },
                 textDecoration: 'none',
                 fontSize: "1.2rem"
               }}
@@ -203,7 +203,7 @@ const Navbar = (props) => {
             <Box sx={{ display: "flex", flexGrow: 0 }}>
               {user && (
                 <>
-                  <Typography sx={{ mr: "2em", alignSelf: "center", color: `${fontNav}`, fontSize: "1.1rem" }}>HEY, {user?.username.toUpperCase()}!</Typography>
+                  <Typography sx={{ display: {xs: "none", md: "block"}, mr: "2em", alignSelf: "center", color: `${fontNav}`, fontSize: "1.1rem" }}>HEY, {user?.username.toUpperCase()}!</Typography>
                   <Badge sx={{ alignSelf: "center", mr: "2rem" }} badgeContent={props?.cart.length} color="error">
                     <Link to="/cart"><ShoppingCartOutlinedIcon sx={{ color: `${fontNav}`, fontSize: "2rem", textDecoration: "none" }} /></Link>
                   </Badge>

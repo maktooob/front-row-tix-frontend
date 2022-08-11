@@ -1,14 +1,18 @@
 import axios from 'axios'
-import {useContext, useEffect, useState} from 'react'
-import {AuthContext} from '../context/auth.context'
+import { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../context/auth.context'
 import Button from '@mui/material/Button'
 import { Link, useNavigate } from 'react-router-dom'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, TextField } from '@mui/material'
 
 
 const OrderPage = (props) => {
 
   let navigate = useNavigate()
-  const {user, authenticateUser } = useContext(AuthContext)
+  const { user, authenticateUser } = useContext(AuthContext)
   const [inputs, setInputs] = useState('')
   const [total, setTotal] = useState(null)
   const [orderStatus, setOrderStatus] = useState(false)
@@ -16,7 +20,7 @@ const OrderPage = (props) => {
   const handleChange = (event) => {
     const name = event.target.name
     const value = event.target.value
-    setInputs((values) => ({...values, [name]: value}))
+    setInputs((values) => ({ ...values, [name]: value }))
   }
   useEffect(() => {
     console.log('user', user)
@@ -28,7 +32,7 @@ const OrderPage = (props) => {
       let amount = props.cart.filter(
         (event) => event._id === element._id
       ).length
-      let singleEvent = {eventId: element._id, quantity: amount}
+      let singleEvent = { eventId: element._id, quantity: amount }
       return singleEvent
     })
     const key = 'eventId'
@@ -50,10 +54,10 @@ const OrderPage = (props) => {
     }
     const storedToken = localStorage.getItem("authToken")
     axios
-      .post(process.env.REACT_APP_API_BASE_URL + '/order', 
-      order,
-      { headers: { Authorization: `Bearer ${storedToken}` } })
-      
+      .post(process.env.REACT_APP_API_BASE_URL + '/order',
+        order,
+        { headers: { Authorization: `Bearer ${storedToken}` } })
+
       .then((response) => {
         console.log(response)
         setInputs('')
@@ -74,87 +78,188 @@ const OrderPage = (props) => {
     if (existingItem) {
       existingItem.quantity++
     } else {
-      acc.push({...cur, quantity: 1})
+      acc.push({ ...cur, quantity: 1 })
     }
     return acc
   }, [])
 
-  const totalPrice = props.cart.reduce((acc, {price}) => acc + price, 0)
+  const totalPrice = props.cart.reduce((acc, { price }) => acc + price, 0)
   useEffect(() => setTotal(totalPrice), [])
 
 
 
   return (
     <>
-    {orderStatus ? 
-    <div>
-      <div>Thank you for your purchase! Your order has been placed successfully!</div>
-      <Link to="/">Keep shopping</Link>
-    </div>
-      : <div>
-      <div>Complete your order</div>
-      <form id='addEvent' onSubmit={handleSubmit}>
-        <h3>Submit your shipping details</h3>
-        <label>
-          Full name
-          <input
-            type='text'
-            name='name'
-            value={inputs.name || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Street
-          <input
-            type='text'
-            name='street'
-            value={inputs.street || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          City
-          <input
-            type='text'
-            name='city'
-            value={inputs.city || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Zip code
-          <input
-            type='number'
-            name='zip'
-            value={inputs.zip || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Country
-          <input
-            type='text'
-            name='country'
-            value={inputs.country || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <h3>Total: {total} €</h3>
-        <Button type='submit'  variant='contained'>
-          Buy now!
-        </Button>
-      </form>
-      {preparedArr.map((element) => {
-        return (
-          <div key={element._id}>
-            <p>{element.title}</p>
-            <p>{element.price}</p>
-            <p>Amount: {element.quantity}</p>
+      {orderStatus ?
+        <div className='success-page'>
+          <div className='success-ctn'>
+            <p style={{ mb: "2rem" }}>Thank you for your purchase! <br></br>We have sent you an email with further information!</p>
+            <Link class="fancy" to="/events">
+              <span className="top-key"></span>
+              <span className="text">Keep shopping!</span>
+              <span className="bottom-key-1"></span>
+              <span className="bottom-key-2"></span>
+            </Link>
           </div>
-        )
-      })}
-      </div> }
+        </div>
+        :
+        <div>
+          <div className="cart-head">
+
+            <Link className="back-link" style={{ display: "inline", textDecoration: 'none', color: 'black' }} to="/events"><ArrowBackIosIcon sx={{ fontSize: "3rem", marginLeft: "2rem", textDecoration: "none" }} /></Link>
+            <h1 className="cart-title">Complete your order!</h1>
+            <div className="pseudo"><Link className="back-link" style={{ display: "inline", textDecoration: 'none', color: 'black' }} to="/events"><ArrowBackIosIcon sx={{ fontSize: "3rem", marginLeft: "2rem", textDecoration: "none" }} /></Link></div>
+          </div>
+          <div className='order-page'>
+
+            {/* <form id='addEvent' onSubmit={handleSubmit}>
+              <h3>Submit your shipping details</h3>
+              <label>
+                Full name
+                <input
+                  type='text'
+                  name='name'
+                  value={inputs.name || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Street
+                <input
+                  type='text'
+                  name='street'
+                  value={inputs.street || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                City
+                <input
+                  type='text'
+                  name='city'
+                  value={inputs.city || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Zip code
+                <input
+                  type='number'
+                  name='zip'
+                  value={inputs.zip || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Country
+                <input
+                  type='text'
+                  name='country'
+                  value={inputs.country || ''}
+                  onChange={handleChange}
+                />
+              </label>
+              <h3>Total: {total} €</h3>
+              <Button type='submit' variant='contained'>
+                Buy now!
+              </Button>
+            </form> */}
+
+            <Box component="form"
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: "100%" },
+                display: "flex", flexDirection: "column", minWidth: "30vw", justifyContent: "center", maxWidth: "20rem", alignItems: "center", padding: "1rem"
+              }}
+              onSubmit={handleSubmit}
+              noValidate
+              autoComplete="off">
+              <TextField
+                required
+                variant='outlined'
+                label="Full name"
+                type="text"
+                name="name"
+                value={inputs.value}
+                onChange={handleChange}
+
+              />
+              <TextField
+                required
+                variant='outlined'
+                label="Street"
+                type="text"
+                name="street"
+                value={inputs.value}
+                onChange={handleChange}
+              />
+              <TextField
+                required
+                variant='outlined'
+                label="City"
+                type="text"
+                name="city"
+                value={inputs.value}
+                onChange={handleChange}
+              />
+              <TextField
+                required
+                variant='outlined'
+                label="Zip Code"
+                type="text"
+                name="zip"
+                value={inputs.value}
+                onChange={handleChange}
+              />
+              <TextField
+                required
+                variant='outlined'
+                label="Country"
+                type="text"
+                name="country"
+                value={inputs.value}
+                onChange={handleChange}
+              />
+              <button type="submit" style={{ width: "100%" }} class="fancy" to="/events">
+                <span className="top-key"></span>
+                <span className="text">Buy now!</span>
+                <span className="bottom-key-1"></span>
+                <span className="bottom-key-2"></span>
+              </button>
+            </Box>
+
+            <div className="order">
+
+              {preparedArr ? (
+                preparedArr.map((element) => {
+                  return (
+
+                    <div key={element._id} className="order-inner">
+                      <img id="cart-img" src={element.image} alt="event" />
+                      <h3>{element.title}</h3>
+                      <p>Location:   {element.location}</p>
+                      <div className="quant"><p>Quantity:   {element.quantity}</p></div>
+                      <p id="price-cart">Price:   {element.price} €</p>
+
+                    </div>
+                  )
+                })
+              ) : (
+                <p>loading...</p>
+              )}
+
+              <div className="total-ctn">
+                <div className="proceed">
+                  <p className="total">Total: <span id="total-margin">{total} €</span></p>
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      }
+
     </>
   )
 }
