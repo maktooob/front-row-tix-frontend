@@ -6,9 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { Typography } from '@mui/material';
 import { AuthContext } from '../context/auth.context';
 
-
-
-
 const AddEvent = (props) => {
 
   const { user } = useContext(AuthContext)
@@ -57,7 +54,6 @@ const AddEvent = (props) => {
     uploadData = new FormData()
     uploadData.append("image", image)}
     else (setImage(undefined))
-    console.log("uplimg", uploadData)
 
 
     axios.post(process.env.REACT_APP_API_BASE_URL + "/upload",
@@ -65,7 +61,6 @@ const AddEvent = (props) => {
       { headers: { user: user.status } })
       .then(response => {
         addEvent(response.data.fileUrl)
-        console.log(response.data)
       })
       .catch(e => console.log(e))
 
@@ -82,7 +77,6 @@ const AddEvent = (props) => {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({ ...values, [name]: value }))
-
   }
 
   return (

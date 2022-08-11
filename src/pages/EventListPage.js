@@ -54,9 +54,7 @@ const EventListPage = () => {
           <p className='subhero'>Browse through all our events and pick your favorite!</p>
         </div>
         <IsAdmin>
-          <form >
-            <TextField onChange={(e) => setSearchInput(e.target.value)} value={searchInput} sx={{ width: "30vw" }} label="SEARCH BY EVENT NAME HERE" />
-          </form>
+          
           <div>
 
             <span onClick={unrollForm}><AddCircleOutline sx={{ cursor: "pointer", fontSize: "2rem", textDecoration: "none", color: "black" }} /></span>
@@ -65,7 +63,9 @@ const EventListPage = () => {
           {showForm &&
             <AddEvent component="div" maxWidth="50vw" fetchEventsCallback={fetchEvents} />}
         </IsAdmin>
-
+        <form >
+            <TextField onChange={(e) => setSearchInput(e.target.value)} value={searchInput} sx={{ mb: "2rem", mt: "2rem", width: "30vw" }} label="SEARCH BY EVENT NAME HERE" />
+          </form>
         <Box maxWidth='xl' sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: "center", alignItems: "center" }}>
           {filtered ? (
             filtered.map((element) => {
