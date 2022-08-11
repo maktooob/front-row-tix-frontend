@@ -5,10 +5,9 @@ body{
 .accordion-det {
   display: flex;
   justify-content: space-between;
+
 }
-#price-history {
-  font-weight: 600;
-}
+
 .card-ctn {
   display: flex;
 }
@@ -361,8 +360,6 @@ body{
   }
 }
 
-
-
 .order-inner {
  display: flex;
  justify-content: space-between;
@@ -370,6 +367,7 @@ body{
   border: 1px solid;
   margin-bottom: 1rem;
   padding: 1rem;
+  align-items: center;
 }
 .order {
   width: 80%;
@@ -399,6 +397,15 @@ body{
     align-items: center;
     padding: 1rem
   }
+}
+.user-head {
+  text-align: center;
+}
+.acc-ctn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-
+  margin: 0;
 }
