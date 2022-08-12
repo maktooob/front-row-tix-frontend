@@ -2,7 +2,7 @@ import axios from 'axios'
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/auth.context'
 import Button from '@mui/material/Button'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import {Box, TextField, Typography} from '@mui/material'
 

@@ -14,7 +14,8 @@ body{
 .navbar:hover{
   z-index: 100;
 
-}
+}box-shadow:  26px 26px 52px #acacac,
+-26px -26px 52px #ffffff;
 
 .home {
   background-image: url('./images/sebastian-ervi-Qq2h76kYRFI-unsplash\ \(1\)\ 2.jpg');
@@ -261,6 +262,7 @@ body{
   }
   .cart-ctn{
     flex-direction: column;
+
   }
   #cart-img {
     min-width: 70vw;
@@ -280,7 +282,7 @@ body{
 }
 
 .cart-ctn {
-  background-color: rgb(244, 244, 244);
+  background-color: rgb(254, 253, 253);
   padding: 1.5rem 2.5rem;
   margin-bottom: 1rem;
   min-width: 80vw;
@@ -288,7 +290,8 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid
+  box-shadow:  26px 26px 52px #acacac,
+             -26px -26px 52px #ffffff;
 
 }
 #cart-img{
@@ -299,6 +302,7 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 
 }
 .quant{
@@ -364,10 +368,11 @@ body{
  display: flex;
  justify-content: space-between;
   background-color: white;
-  border: 1px solid;
   margin-bottom: 1rem;
   padding: 1rem;
   align-items: center;
+  box-shadow:  12px 12px 24px #c7c7c7,
+  -12px -12px 24px #f9f9f9;
 }
 .order {
   width: 80%;

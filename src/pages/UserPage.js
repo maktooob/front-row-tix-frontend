@@ -41,7 +41,7 @@ const UserPage = () => {
           orders.map((order, index) => {
             return (
               <div key={order._id} className="acc-ctn">
-                <Accordion key={order._id} style={{ border: "1px solid", width: "80vw", padding: "1rem", marginTop: "1rem" }}>
+                <Accordion key={order._id} style={{ boxShadow:  "26px 26px 52px #acacac, -26px -26px 52px #ffffff", width: "80vw", padding: "1rem", marginTop: "1rem" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
