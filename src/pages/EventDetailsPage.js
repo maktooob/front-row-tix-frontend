@@ -69,8 +69,8 @@ const EventDetailsPage = (props) => {
 
 
                 {user?.status === "admin" && <div>
-                    <Link to={`/events/edit/${id}`} state={{ foundEvent }} ><button >Edit</button></Link>
-                    <button onClick={deleteFromDB}>Delete</button>
+                    <Link style={{padding: "2rem"}} to={`/events/edit/${id}`} state={{ foundEvent }} ><button style={{padding: "0.5rem 2rem"}}>Edit</button></Link>
+                    <button style={{padding: "0.5rem 2rem"}} onClick={deleteFromDB}>Delete</button>
 
                 </div>}
             </div>
