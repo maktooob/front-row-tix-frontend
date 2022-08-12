@@ -25,7 +25,7 @@ const EventListPage = () => {
   
   useEffect(() => {
     setFiltered(foundEvent)
-  }, [searchInput, foundEvent])
+  }, [searchInput, events])
 
 
   const unrollForm = () => {
