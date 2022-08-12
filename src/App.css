@@ -292,9 +292,11 @@ body{
   box-shadow:  26px 26px 52px #acacac,
              -26px -26px 52px #ffffff;
 
+
 }
 #cart-img{
   max-width: 15vw;
+  height: 15vh;
 }
 .cart {
   display: flex;
@@ -319,7 +321,7 @@ body{
   font-weight: 700;
 }
 .cart-title {
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
   align-self: flex-start;
   
 }
