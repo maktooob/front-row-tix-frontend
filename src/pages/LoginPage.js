@@ -75,7 +75,7 @@ const LoginPage = () => {
             value={inputs.value}
             onChange={handleChange}
           />
-          <button type="submit" onClick={() => formRef.current.reportValidity()} style={{width: "100%"}} class="fancy" to="/events">
+          <button type="submit" onClick={() => formRef.current.reportValidity()} style={{width: "100%"}} className="fancy" to="/events">
             <span className="top-key"></span>
             <span className="text">Log In</span>
             <span className="bottom-key-1"></span>

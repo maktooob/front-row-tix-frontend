@@ -1,10 +1,12 @@
 import { Box, Button, TextField, Typography } from "@mui/material"
 import axios from "axios"
-import { useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { AuthContext } from "../context/auth.context"
 
 
 const SignupPage = () => {
+  const {storeToken, authenticateUser} = useContext(AuthContext)
 let navigate = useNavigate()
 const [errorMessage, setErrorMessage] = useState("")
 const [inputs, setInputs] = useState("")
@@ -17,8 +19,17 @@ const userSignup = () => {
     }
     axios.post(`${process.env.REACT_APP_API_BASE_URL}/signup`, newUser)
     .then(res => {
-      console.log("signup successful")
-      navigate('/')
+      const loginUser = {
+        username: inputs.username,
+        password: inputs.password
+      }
+      return axios.post(`${process.env.REACT_APP_API_BASE_URL}/login`, loginUser)
+    })
+    .then(res => {
+      storeToken(res.data.authToken)
+      authenticateUser()
+      console.log(res)
+      navigate("/")
     })
     .catch((error) => {
       const errorDescription = error.response.data.errorMessage;
