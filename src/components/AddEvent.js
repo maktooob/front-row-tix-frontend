@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Typography } from '@mui/material';
 import { AuthContext } from '../context/auth.context';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const AddEvent = (props) => {
 
@@ -13,6 +14,7 @@ const AddEvent = (props) => {
   const [image, setImage] = useState(undefined)
   const formRef = useRef()
   const [errorMessage, setErrorMessage] = useState("")
+  let navigate= useNavigate()
 
   const addEvent = (uploadImage) => {
     const newEvent = {
@@ -31,6 +33,7 @@ const AddEvent = (props) => {
         { headers: { user: user.status } })
       .then((res) => {
         props.fetchEventsCallback() //add event to List and update the view
+        navigate("/")
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
