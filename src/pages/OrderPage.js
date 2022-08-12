@@ -114,6 +114,7 @@ const OrderPage = (props) => {
             </div>
           </div>
           <div className='order-page'>
+            
             <Box
               component='form'
               sx={{
@@ -131,6 +132,7 @@ const OrderPage = (props) => {
               noValidate
               autoComplete='off'
             >
+              <h4>Please provide your shipping address</h4>
               <TextField required variant='outlined' label='Full name' type='text' name='name' value={inputs.value} onChange={handleChange} />
               <TextField required variant='outlined' label='Street' type='text' name='street' value={inputs.value} onChange={handleChange} />
               <TextField required variant='outlined' label='City' type='text' name='city' value={inputs.value} onChange={handleChange} />

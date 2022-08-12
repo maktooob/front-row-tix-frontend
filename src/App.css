@@ -264,7 +264,8 @@ body{
 
   }
   #cart-img {
-    min-width: 70vw;
+    /* height: auto;
+    min-width: 70vw; */
   }
 }
 .details-btn{
@@ -377,7 +378,8 @@ body{
 }
 .order {
   width: 80%;
-  margin: 2rem
+  margin: 2rem;
+  margin-top: 5.5rem;
 }
 
 .success-page{
