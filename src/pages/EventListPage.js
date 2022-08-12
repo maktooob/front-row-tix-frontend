@@ -75,7 +75,7 @@ const EventListPage = () => {
                     <CardActionArea component={Link} to={`/events/${element._id}`}>
                       <CardMedia component='img' height='180' image={element.image} alt='event' sx={{ objectFit: 'cover' }} />
                       <CardContent>
-                        <Typography gutterBottom variant='h4' component='div'>
+                        <Typography gutterBottom variant='h5' component='div'>
                           {element.title}
                         </Typography>
                         <Box sx={{ display: 'flex', alignItems: "flex-end", justifyContent: 'space-between' }}>
