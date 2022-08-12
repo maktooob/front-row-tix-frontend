@@ -33,7 +33,7 @@ const AddEvent = (props) => {
         { headers: { user: user.status } })
       .then((res) => {
         props.fetchEventsCallback() //add event to List and update the view
-        navigate("/")
+        navigate("/events")
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
