@@ -14,8 +14,7 @@ body{
 .navbar:hover{
   z-index: 100;
 
-}box-shadow:  26px 26px 52px #acacac,
--26px -26px 52px #ffffff;
+}
 
 .home {
   background-image: url('./images/sebastian-ervi-Qq2h76kYRFI-unsplash\ \(1\)\ 2.jpg');
