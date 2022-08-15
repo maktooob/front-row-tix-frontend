@@ -115,7 +115,7 @@ const EventListPage = () => {
             </>
           )}
         </Box>
-        {events.length > 0 && 
+        {events.length < 1 && 
         <>
         <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
       </>
