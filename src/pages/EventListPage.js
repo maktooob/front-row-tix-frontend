@@ -115,6 +115,11 @@ const EventListPage = () => {
             </>
           )}
         </Box>
+        {events.length > 0 && 
+        <>
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      </>
+        }
       </Box>
     </>)
 }
