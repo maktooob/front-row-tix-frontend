@@ -50,7 +50,7 @@ const EventListPage = () => {
     <>
       <Box maxWidth="xxl" sx={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
         <div className="headline">
-          <h1 className='hero-line'>ALL OUR EVENTS</h1>
+          <h1 className='hero-line'>ALL OF OUR EVENTS</h1>
           <p className='subhero'>Browse through all our events and pick your favorite!</p>
         </div>
         <IsAdmin>
