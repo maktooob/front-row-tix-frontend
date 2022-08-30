@@ -20,6 +20,7 @@ import { useLocation } from 'react-router-dom'
 import StadiumIcon from '@mui/icons-material/Stadium';
 
 const Navbar = (props) => {
+  
   const { logOutUser, user } = useContext(AuthContext)
   const [bgNav, setBgNav] = useState("rgb(224, 223, 223)")
   const [bgNavHover, setBgNavHover] = useState("")
@@ -172,11 +173,6 @@ const Navbar = (props) => {
               }}
             >
               <Box sx={{ display: 'flex' }}>
-                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
-                  <Link style={{ textDecoration: 'none', color: `${fontNav}` }} to={`/`}>
-                    Home
-                  </Link>
-                </Button>
                 <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block', fontSize: "1.1rem" }}>
                   <Link style={{ textDecoration: 'none', color: `${fontNav}` }} to={`/events`}>
                     Browse all events
