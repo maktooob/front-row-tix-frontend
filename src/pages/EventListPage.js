@@ -69,7 +69,7 @@ const EventListPage = () => {
             filtered.map((element) => {
               return (
                 <div style={{flex: '1 1 1', flexWrap: 'wrap', width: '18rem'}} key={element._id}>
-                  <Card key={element._id} sx={{mb: '1rem', mr: '1rem', mt: '2rem', borderRadius: '10px', boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff'}}>
+                  <Card key={element._id} sx={{mb: '1rem', mr: '1rem', mt: '2rem', boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff'}}>
                     <CardActionArea component={Link} to={`/events/${element._id}`}>
                       <CardMedia component='img' height='200' width='auto' maxWidth='100%' image={element.image} alt='event' sx={{objectFit: 'cover'}} />
                       <CardContent>
