@@ -7,6 +7,7 @@ Front Row Tix is an MERN-Stack based eCommerce application, which can be used to
 
 The App consists of a front and a backend ( https://github.com/maktooob/front-row-tix-backend ).
 Features: 
+
 - Full CRUD (set user status to "admin")
 - Authentication with JWT
 - Only logged in users can buy tickets
@@ -21,7 +22,7 @@ Features:
 - Create this .env:
 - REACT_APP_API_URL=http://localhost:5005/api
 
-**Creating a user with status: "admin", will allow you to add, edit and delete events.**
+**Creating a user with status: "admin", will allow you to add, edit and delete events, by clicking the plus icon on the Browse Events Page.**
 
 ## Demo
 
