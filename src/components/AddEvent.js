@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Typography } from '@mui/material';
 import { AuthContext } from '../context/auth.context';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AddEvent = (props) => {
 
@@ -95,7 +95,6 @@ const AddEvent = (props) => {
         onSubmit={handleSubmit}
       >
         <TextField
-          
           sx={{ flex: "1 1 calc(33% - 2em)" }}
           variant='outlined'
           id="outlined-size-small"

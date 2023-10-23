@@ -45,35 +45,48 @@ const EventListPage = () => {
 
   return (
     <>
-      <Box maxWidth='xxl' sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
-        <div className='headline'>
+      <Box maxwidth='xxl' sx={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+        <Box className='headline'>
           <h1 className='hero-line'>ALL OF OUR EVENTS</h1>
           <p className='subhero'>Browse through all our events and pick your favorite!</p>
-        </div>
+        </Box>
+
+        {/* add Events Dropdown only admin can see*/}
         <IsAdmin>
-          <div>
+          <Box>
             <span onClick={unrollForm}>
               <AddCircleOutline sx={{cursor: 'pointer', fontSize: '2rem', textDecoration: 'none', color: 'black'}} />
             </span>
             <span onClick={reUnrollForm}>
               <RemoveCircleOutlineIcon sx={{cursor: 'pointer', fontSize: '2rem', textDecoration: 'none', color: 'black'}} />
             </span>
-          </div>
-          {showForm && <AddEvent component='div' maxWidth='50vw' fetchEventsCallback={fetchEvents} />}
+          </Box>
+          {showForm && <AddEvent component='Box' maxwidth='50vw' fetchEventsCallback={fetchEvents} />}
         </IsAdmin>
-        <form>
-          <TextField onChange={(e) => setSearchInput(e.target.value)} value={searchInput} sx={{mb: '2rem', mt: '2rem', width: '30vw'}} label='SEARCH BY EVENT NAME HERE' />
-        </form>
-        <Box maxWidth='xl' sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
+
+        {/* Filter field */}
+        <Box>
+          <TextField onChange={(e) => setSearchInput(e.target.value)} value={searchInput} sx={{mb: '0.6rem', mt: '2rem', width: '30vw'}} label='SEARCH BY EVENT NAME HERE' />
+          <Box sx={{display: "flex", justifyContent: "space-between", mb: "2rem", mt: "0.5rem"}}>
+            <Box>Culture</Box>
+            <Box>Concert</Box>
+            <Box>Sports</Box>
+          </Box>
+        </Box>
+
+        <Typography sx={{fontWeight: '600'}}>Number of results: {filtered.length} </Typography>
+
+        {/* Result as Cards */}
+        <Box maxwidth='xl' sx={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>
           {filtered ? (
             filtered.map((element) => {
               return (
-                <div style={{flex: '1 1 1', flexWrap: 'wrap', width: '18rem'}} key={element._id}>
-                  <Card key={element._id} sx={{mb: '1rem', mr: '1rem', mt: '2rem', boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff'}}>
+                <Box style={{flex: '1 1 1', flexWrap: 'wrap', width: '18rem'}} key={element._id}>
+                  <Card key={element._id} sx={{mb: '1rem', mr: '1rem', mt: '2rem', BoxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff'}}>
                     <CardActionArea component={Link} to={`/events/${element._id}`}>
-                      <CardMedia component='img' height='200' width='auto' maxWidth='100%' image={element.image} alt='event' sx={{objectFit: 'cover'}} />
+                      <CardMedia component='img' height='200' width='auto' maxwidth='100%' image={element.image} alt='event' sx={{objectFit: 'cover'}} />
                       <CardContent>
-                        <Typography gutterBottom variant='h5' component='div'>
+                        <Typography gutterBottom variant='h5' component='Box'>
                           {element.title}
                         </Typography>
                         <Box sx={{display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between'}}>
@@ -104,28 +117,29 @@ const EventListPage = () => {
                       </Link>
                     </CardActions>
                   </Card>
-                </div>
+                </Box>
               )
             })
           ) : (
             <>
-              <div class='lds-ellipsis'>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <Box className='lds-ellipsis'>
+                <Box></Box>
+                <Box></Box>
+                <Box></Box>
+                <Box></Box>
+              </Box>
             </>
           )}
         </Box>
+
         {events.length < 1 && (
           <>
-            <div class='lds-ellipsis'>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <Box className='lds-ellipsis'>
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+              <Box></Box>
+            </Box>
           </>
         )}
       </Box>

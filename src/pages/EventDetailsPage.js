@@ -57,7 +57,7 @@ const EventDetailsPage = (props) => {
                     </div>
                 
                     <div className="details-btn">
-                        <button onClick={() => { user ? props.addToCartCallback(id) : navigate("/login") }} style={{ width: "100%", margin: "0" }} class="fancy" to="/events">
+                        <button onClick={() => { user ? props.addToCartCallback(id) : navigate("/login") }} style={{ width: "100%", margin: "0" }} className="fancy" to="/events">
                             <span className="top-key"></span>
                             <span className="text">Add To Cart</span>
                             <span className="bottom-key-1"></span>
